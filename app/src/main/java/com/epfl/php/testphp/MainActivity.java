@@ -56,9 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     TextView content;
-    EditText fname, email, login, pass;
-    String Name, Email, Login, Pass;
-    private String text;
+    EditText fname, email;
+    String Name, Email;
     private static String SERVER_ADRESS = "http://dhlabsrv4.epfl.ch/wtm/add.php";
     private String SERVER_URL = "http://udle-blog.com/db16/add.php";
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -73,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog dialog;
     private String selectedFilePath;
     private  StringBuffer response;
+    private JSONObject geo_data;
 
     @Override
 
@@ -85,7 +85,16 @@ public class MainActivity extends AppCompatActivity {
         fname = (EditText) findViewById(R.id.user_id);
         email = (EditText) findViewById(R.id.geo_data);
 
+        geo_data = new JSONObject();
+        JSONObject location = new JSONObject();
 
+        try {
+            location.put("lat",37.4224764);
+            location.put("long",-122.0842499);
+            geo_data.put("location",location);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
         Button saveme = (Button) findViewById(R.id.save);
@@ -99,12 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     Name = fname.getText().toString();
                     Email = email.getText().toString();
 
-
-
-
-                    // new Upload().execute();
                     if(bitmapImage == null) return;
-//                    new Upload(bitmapImage).execute();
 
                     dialog = ProgressDialog.show(MainActivity.this, "", "Uploading File...", true);
 
@@ -197,16 +201,7 @@ public class MainActivity extends AppCompatActivity {
                 dataOutputStream.writeBytes("gasp_unique_id");
                 dataOutputStream.writeBytes(lineEnd);
 
-                JSONObject geo_data = new JSONObject();
-                JSONObject location = new JSONObject();
 
-                try {
-                    location.put("lat",37.4224764);
-                    location.put("long",-122.0842499);
-                    geo_data.put("location",location);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
                 dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"geo_data\""+ lineEnd);
                 dataOutputStream.writeBytes(lineEnd);
@@ -334,122 +329,6 @@ public class MainActivity extends AppCompatActivity {
         PhotoManager.takePhoto(MainActivity.this);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Main Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.epfl.php.testphp/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Main Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.epfl.php.testphp/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
-    }
-
-
-    private class Upload extends AsyncTask<Void, Void, Void> {
-
-        private Exception exception;
-        Bitmap picture;
-        String name;
-        String user_id = "id_gasp";
-        JSONObject geo_data = new JSONObject();
-
-
-
-        public Upload(Bitmap image) {
-            this.picture = image;
-            this.name = MonumentApplication.fileName;
-            JSONObject location = new JSONObject();
-
-            try {
-                location.put("lat",37.4224764);
-                location.put("long",-122.0842499);
-                geo_data.put("location",location);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-
-
-        protected Void doInBackground(Void... voids) {
-                //GetText();
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                picture.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
-
-                ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-//                dataToSend.add(new BasicNameValuePair("name", name));
-                dataToSend.add(new BasicNameValuePair("user_id",user_id));
-                dataToSend.add(new BasicNameValuePair("geo_data", geo_data.toString()));
-                dataToSend.add(new BasicNameValuePair("picture", encodedImage));
-
-
-
-
-            HttpParams httpParams = getHttpRequestParams();
-                HttpClient client = new DefaultHttpClient(httpParams);
-                HttpPost post = new HttpPost(SERVER_ADRESS);
-                try {
-
-                    post.setEntity(new UrlEncodedFormEntity(dataToSend));
-                    client.execute(post);
-                    ResponseHandler<String> responseHandler = new BasicResponseHandler();
-                    String response = client.execute(post, responseHandler);
-                    text = response;
-
-                }
-             catch (Exception e) {
-                this.exception = e;
-            }
-            return null;
-        }
-
-        protected void onPostExecute(Void aVoid) {
-            // TODO : check this.exception
-            // TODO: do something with the feed
-            // Show response on activity
-            content.setText(text);
-
-        }
-
-        private HttpParams getHttpRequestParams() {
-            HttpParams httpParams = new BasicHttpParams();
-            HttpConnectionParams.setConnectionTimeout(httpParams, 1000 * 30);
-            HttpConnectionParams.setSoTimeout(httpParams, 1000 * 30);
-            return httpParams;
-        }
-    }
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
