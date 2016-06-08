@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -112,6 +114,25 @@ public class PhotoManager {
         }
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inSampleSize = scale;
-        return BitmapFactory.decodeFile(fileName, opts);
+        Bitmap bm =  BitmapFactory.decodeFile(fileName, opts);
+
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
+
+        int rotationAngle = 0;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+        Matrix matrix = new Matrix();
+        matrix.postRotate(rotationAngle);
+//        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+        Log.d("photo",opts.outWidth + " "+ opts.outHeight);
+        return Bitmap.createBitmap(bm, 0, 0, opts.outWidth, opts.outHeight, matrix, true);
     }
 }

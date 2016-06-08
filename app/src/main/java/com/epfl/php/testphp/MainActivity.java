@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         listCurrentPhotos.setDefautlPhotos();
         mData = listCurrentPhotos.listPhoto;
         setTitle();
+        resetPhotos(null);
         setUpCoverFlow();
 
 
@@ -184,7 +185,11 @@ public class MainActivity extends AppCompatActivity {
                 fos.write(data);
                 fos.close();
                 Bitmap bitmap = PhotoManager.resizeIfNeeded(400,pictureFile.getAbsolutePath());
-                listCurrentPhotos.listPhoto.add(new PhotoEntity(bitmap,pictureFile.getAbsolutePath(),updateLocationJson(null)));
+                ArrayList<PhotoEntity> listPhotos = listCurrentPhotos.listPhoto;
+                if(listPhotos.size() == 1 && listPhotos.get(0).filename.equals("no images")){
+                    listPhotos.remove(0);
+                }
+                listPhotos.add(new PhotoEntity(bitmap,pictureFile.getAbsolutePath(),updateLocationJson(null)));
                 setUpCoverFlow();
 
             } catch (FileNotFoundException e) {
@@ -278,10 +283,8 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 try {
-                    // Get user defined values
-                    Email = email.getText().toString();
 
-                    if (bitmapImage == null) return;
+                    if (listCurrentPhotos.listPhoto.size() == 0) return;
 
                     dialog = ProgressDialog.show(MainActivity.this, "", "Uploading File...", true);
 
@@ -291,7 +294,9 @@ public class MainActivity extends AppCompatActivity {
 
                             try {
                                 //creating new thread to handle Http Operations
-                                uploadFile(selectedFilePath);
+                                for(PhotoEntity pE : listCurrentPhotos.listPhoto){
+                                    uploadFile(pE);
+                                }
                             } catch (OutOfMemoryError e) {
 
                                 runOnUiThread(new Runnable() {
@@ -308,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // CALL GetText method to make post method call
                 } catch (Exception ex) {
-                    content.setText(" url exeption! ");
+                    content.setText(" url exeption! " + ex.toString());
                 }
             }
         });
@@ -376,8 +381,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public int uploadFile(final String selectedFilePath) {
+    public int uploadFile( PhotoEntity photoEntity) {
 
+        selectedFilePath = photoEntity.filename;
         int serverResponseCode = 0;
 
         HttpURLConnection connection;
@@ -437,7 +443,7 @@ public class MainActivity extends AppCompatActivity {
                 dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
                 dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"geo_data\""+ lineEnd);
                 dataOutputStream.writeBytes(lineEnd);
-                dataOutputStream.writeBytes(geo_data.toString());
+                dataOutputStream.writeBytes(photoEntity.jLoc.toString());
                 dataOutputStream.writeBytes(lineEnd);
 
 
@@ -660,8 +666,8 @@ public class MainActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
-                Toast.makeText(MainActivity.this, "Best Provider update", Toast.LENGTH_SHORT).show();
+                Log.d("provider","Best Provider update");
+//                Toast.makeText(MainActivity.this, "Best Provider update", Toast.LENGTH_SHORT).show();
             }
         });
 
