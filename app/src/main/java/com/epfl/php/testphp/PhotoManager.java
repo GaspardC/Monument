@@ -99,7 +99,7 @@ public class PhotoManager {
     }
 
 
-    private static Bitmap resizeIfNeeded(int size,String fileName) {
+    public static Bitmap resizeIfNeeded(int size,String fileName) {
         BitmapFactory.Options bounds = new BitmapFactory.Options();
         bounds.inJustDecodeBounds = true;
 

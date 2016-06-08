@@ -7,22 +7,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.hardware.Camera;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
-import android.os.AsyncTask;
+
+import android.os.Environment;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,47 +32,35 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-import com.android.internal.http.multipart.MultipartEntity;
-import com.google.android.gms.appindexing.Action;
+
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow;
 
@@ -108,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
     private TextSwitcher mTitle;
     private ListCurrentPhotos listCurrentPhotos;
 
+    private Camera mCamera;
+    private CameraPreview mCameraPreview;
+
 
     @Override
 
@@ -135,6 +127,87 @@ public class MainActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+
+
+        mCamera = getCameraInstance();
+        mCameraPreview = new CameraPreview(this, mCamera);
+        final FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+        assert preview != null;
+        preview.addView(mCameraPreview);
+
+        Button captureButton = (Button) findViewById(R.id.button_capture);
+        assert captureButton != null;
+        captureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCamera.takePicture(null, null, mPicture);
+                mCamera.startPreview();
+
+
+            }
+        });
+    }
+
+    /**
+     * Helper method to access the camera returns null if it cannot get the
+     * camera or does not exist
+     *
+     * @return
+     */
+    private Camera getCameraInstance() {
+        Camera camera = null;
+        try {
+            camera = Camera.open();
+        } catch (Exception e) {
+            // cannot get camera or does not exist
+        }
+        return camera;
+    }
+
+    android.hardware.Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+            File pictureFile = getOutputMediaFile();
+            if (pictureFile == null) {
+                return;
+            }
+            try {
+                FileOutputStream fos = new FileOutputStream(pictureFile);
+                fos.write(data);
+                fos.close();
+                Bitmap bitmap = PhotoManager.resizeIfNeeded(400,pictureFile.getAbsolutePath());
+                listCurrentPhotos.listPhoto.add(new PhotoEntity(bitmap,pictureFile.getAbsolutePath(),updateLocationJson(null)));
+                setUpCoverFlow();
+
+            } catch (FileNotFoundException e) {
+                Log.d("exeception",e.toString());
+
+            } catch (IOException e) {
+                Log.d("exeception",e.toString());
+            }
+        }
+
+    };
+
+    private static File getOutputMediaFile() {
+        File mediaStorageDir = new File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "MyCameraApp");
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("MyCameraApp", "failed to create directory");
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+                .format(new Date());
+        File mediaFile;
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                + "IMG_" + timeStamp + ".jpg");
+
+        return mediaFile;
     }
 
     private void setTitle() {
@@ -258,13 +331,13 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                         MY_PERMISSIONS_REQUEST_COARSE_LOCATION);
-                return;
             }
             locationManager.requestLocationUpdates(provider, 1 * 5 * 1000, 10, locationListenerBest);
             Location lastLoc = locationManager.getLastKnownLocation(provider);
-            updateLocationJson(lastLoc);
+             updateLocationJson(lastLoc);
 
             Toast.makeText(this, "Best Provider is " + provider, Toast.LENGTH_LONG).show();
+
         }
     }
     private boolean isLocationEnabled() {
@@ -537,20 +610,36 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void updateLocationJson(Location location) {
-        if(location == null) return;
-        longitudeBest = location.getLongitude();
-        latitudeBest = location.getLatitude();
+    private JSONObject updateLocationJson(Location location) {
 
         JSONObject jLocation = new JSONObject();
 
-        try {
-            jLocation.put("lat", latitudeBest);
-            jLocation.put("long", longitudeBest);
-            geo_data.put("location", jLocation);
-            geoDataTextView.setText(geo_data.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(location == null) {
+            try {
+
+                jLocation.put("lat", latitudeBest);
+                jLocation.put("long", longitudeBest);
+                geo_data.put("location", jLocation);
+                geoDataTextView.setText(geo_data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+
+
+            longitudeBest = location.getLongitude();
+            latitudeBest = location.getLatitude();
+
+
+            try {
+                jLocation.put("lat", latitudeBest);
+                jLocation.put("long", longitudeBest);
+                geo_data.put("location", jLocation);
+                geoDataTextView.setText(geo_data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
 
@@ -564,6 +653,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Best Provider update", Toast.LENGTH_SHORT).show();
             }
         });
+
+        return jLocation;
 
     }
 
