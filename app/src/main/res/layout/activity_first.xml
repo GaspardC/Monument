@@ -9,4 +9,33 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.epfl.php.testphp.FirstActivity">
 
+
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="user_id : "
+            />
+        <EditText
+            android:layout_marginLeft="100dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:id="@+id/user_id"
+            android:text="gasp_unique_id"
+            />
+    </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="goToMainActivity"
+        android:text="Start"/>
 </RelativeLayout>

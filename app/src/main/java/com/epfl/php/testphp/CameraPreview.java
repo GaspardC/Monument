@@ -14,6 +14,8 @@ public class CameraPreview extends SurfaceView implements
         SurfaceHolder.Callback {
     private SurfaceHolder mSurfaceHolder;
     private Camera mCamera;
+    public boolean safeToTakePicture = false;
+
 
     // Constructor that obtains context and camera
     @SuppressWarnings("deprecation")
@@ -21,8 +23,10 @@ public class CameraPreview extends SurfaceView implements
         super(context);
         this.mCamera = camera;
         this.mSurfaceHolder = this.getHolder();
-        this.mSurfaceHolder.addCallback(this);
         this.mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        this.mSurfaceHolder.addCallback(this);
+
+
     }
 
     @Override
@@ -32,6 +36,9 @@ public class CameraPreview extends SurfaceView implements
             mCamera.setDisplayOrientation(90);
             mCamera.startPreview();
         } catch (IOException e) {
+            // left blank for now
+        }
+        catch (NullPointerException e) {
             // left blank for now
         }
     }
@@ -49,6 +56,8 @@ public class CameraPreview extends SurfaceView implements
         try {
             mCamera.setPreviewDisplay(surfaceHolder);
             mCamera.startPreview();
+            safeToTakePicture = true;
+
         } catch (Exception e) {
             // intentionally left blank for a test
         }

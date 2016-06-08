@@ -19,6 +19,7 @@ public class MonumentApplication extends Application{
     public static final int TAKE_PHOTO_CODE = 2;
     public static String dir;
     public static String fileName;
+    public static String user_id = "gasp_user_id";
 
 
     @Override

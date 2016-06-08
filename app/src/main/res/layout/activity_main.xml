@@ -15,25 +15,9 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="user_id"
-        />
-    <EditText
-        android:layout_marginLeft="100dp"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:id="@+id/user_id"
-        android:text="gasp_unique_id"
-        />
-</LinearLayout>
+
     <LinearLayout
+        android:visibility="gone"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,6 +38,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -83,12 +68,6 @@
         android:layout_height="fill_parent"
         android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/button_capture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Capture" />
 </LinearLayout>
    <LinearLayout
        android:layout_width="match_parent"
@@ -101,10 +80,17 @@
            android:onClick="resetPhotos"
            android:text="Reset"/>
        <Button
+           android:id="@+id/button_capture"
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:text="Capture" />
+       <Button
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="send to server"
+        android:text="upload"
         android:id="@+id/save"/>
 
    </LinearLayout>
@@ -118,6 +104,7 @@
 
 
     <it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:id="@+id/coverflow"
         android:layout_width="match_parent"

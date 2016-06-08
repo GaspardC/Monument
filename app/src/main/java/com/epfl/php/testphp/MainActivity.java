@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 0;
     private static final int MY_PERMISSIONS_REQUEST_COARSE_LOCATION = 1;
     TextView content, geoDataTextView;
-    EditText fname, email;
+    EditText  email;
     String Name, Email;
     private static String SERVER_ADRESS = "http://dhlabsrv4.epfl.ch/wtm/add.php";
     private String SERVER_URL = "http://udle-blog.com/db16/add.php";
@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
     private String selectedFilePath;
     private StringBuffer response;
     private JSONObject geo_data;
-    private String user_id = "gasp_unique_id";
 
     LocationManager locationManager;
     double longitudeBest, latitudeBest;
@@ -110,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
         listCurrentPhotos = new ListCurrentPhotos(this);
 
         content = (TextView) findViewById(R.id.content);
-        fname = (EditText) findViewById(R.id.user_id);
         geoDataTextView = (TextView) findViewById(R.id.geo_data);
 
         geo_data = new JSONObject();
@@ -135,15 +133,18 @@ public class MainActivity extends AppCompatActivity {
         final FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         assert preview != null;
         preview.addView(mCameraPreview);
+        mCamera.startPreview();
+
 
         Button captureButton = (Button) findViewById(R.id.button_capture);
         assert captureButton != null;
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCamera.takePicture(null, null, mPicture);
-                mCamera.startPreview();
+                if (mCameraPreview.safeToTakePicture) {
+                    mCamera.takePicture(null, null, mPicture);
 
+                }
 
             }
         });
@@ -161,15 +162,21 @@ public class MainActivity extends AppCompatActivity {
             camera = Camera.open();
         } catch (Exception e) {
             // cannot get camera or does not exist
+            e.printStackTrace();
+
         }
         return camera;
     }
 
-    android.hardware.Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+    Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             File pictureFile = getOutputMediaFile();
             if (pictureFile == null) {
+                mCamera.stopPreview();
+                mCamera.startPreview();$
+                mCameraPreview.safeToTakePicture = true;
+
                 return;
             }
             try {
@@ -186,6 +193,10 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 Log.d("exeception",e.toString());
             }
+            mCamera.stopPreview();
+            mCamera.startPreview();
+            mCameraPreview.safeToTakePicture = true;
+
         }
 
     };
@@ -232,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
         CoverFlowAdapter mAdapter = new CoverFlowAdapter(this);
         mAdapter.setData(mData);
         FeatureCoverFlow mCoverFlow = (FeatureCoverFlow) findViewById(R.id.coverflow);
+        mCoverFlow.setVisibility(View.VISIBLE);
         mCoverFlow.setAdapter(mAdapter);
 
         mCoverFlow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -267,7 +279,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     // Get user defined values
-                    Name = fname.getText().toString();
                     Email = email.getText().toString();
 
                     if (bitmapImage == null) return;
@@ -419,7 +430,7 @@ public class MainActivity extends AppCompatActivity {
                 dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
                 dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"user_id\""+ lineEnd);
                 dataOutputStream.writeBytes(lineEnd);
-                dataOutputStream.writeBytes(user_id);
+                dataOutputStream.writeBytes(MonumentApplication.user_id);
                 dataOutputStream.writeBytes(lineEnd);
 
 
