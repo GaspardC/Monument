@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
@@ -104,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<PhotoEntity> mData = new ArrayList<>(0);
     private TextSwitcher mTitle;
+    private ListCurrentPhotos listCurrentPhotos;
 
 
     @Override
@@ -112,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        listCurrentPhotos = new ListCurrentPhotos(this);
 
         content = (TextView) findViewById(R.id.content);
         fname = (EditText) findViewById(R.id.user_id);
@@ -121,6 +125,10 @@ public class MainActivity extends AppCompatActivity {
 
         getLoc();
         setUploadBehavior();
+
+        listCurrentPhotos.setDefautlPhotos();
+        mData = listCurrentPhotos.listPhoto;
+        setTitle();
         setUpCoverFlow();
 
 
@@ -129,36 +137,7 @@ public class MainActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private void setUpCoverFlow() {
-        Drawable draw1 = getDrawable(R.drawable.image_1);
-        Drawable draw2 = getDrawable(R.drawable.image_2);
-        Drawable draw3 = getDrawable(R.drawable.image_3);
-
-        assert ((BitmapDrawable) draw1) != null;
-        Bitmap bit1 =((BitmapDrawable) draw1).getBitmap();
-        assert ((BitmapDrawable) draw2) != null;
-        Bitmap bit2 =((BitmapDrawable) draw2).getBitmap();
-        assert ((BitmapDrawable) draw3) != null;
-        Bitmap bit3 =((BitmapDrawable) draw3).getBitmap();
-
-        String path1 = "path1";
-        String path2 = "path2";
-        String path3 = "path3";
-        JSONObject jLoc1 = new JSONObject();
-        JSONObject jLoc2 = new JSONObject();
-        JSONObject jLoc3 = new JSONObject();
-
-
-
-
-
-        mData.add(new PhotoEntity(bit1,path1,jLoc1));
-        mData.add(new PhotoEntity(bit2,path2,jLoc2));
-        mData.add(new PhotoEntity(bit3,path3,jLoc3));
-
-
-
-
+    private void setTitle() {
         mTitle = (TextSwitcher) findViewById(R.id.title);
         mTitle.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -172,6 +151,10 @@ public class MainActivity extends AppCompatActivity {
         Animation out = AnimationUtils.loadAnimation(this, R.anim.slide_out_bottom);
         mTitle.setInAnimation(in);
         mTitle.setOutAnimation(out);
+    }
+
+    private void setUpCoverFlow() {
+
 
         CoverFlowAdapter mAdapter = new CoverFlowAdapter(this);
         mAdapter.setData(mData);
@@ -490,7 +473,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void takeAPhoto(View view) {
+    public void takePhotos(View view) {
         PhotoManager.takePhoto(MainActivity.this);
     }
 
@@ -585,4 +568,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void resetPhotos(View view) {
+        listCurrentPhotos.resetListPhoto();
+        mData = listCurrentPhotos.listPhoto;
+        setUpCoverFlow();
+    }
 }

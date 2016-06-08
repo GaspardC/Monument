@@ -1,9 +1,15 @@
 package com.epfl.php.testphp;
 
 import android.app.Application;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Environment;
 
+import org.json.JSONObject;
+
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by Gasp on 07/06/16.
@@ -23,5 +29,8 @@ public class MonumentApplication extends Application{
         dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/monument/";
         File newdir = new File(dir);
         newdir.mkdirs();
+
     }
+
+
 }

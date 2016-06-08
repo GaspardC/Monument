@@ -65,20 +65,32 @@
             android:layout_marginLeft="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="take a photo"
-            android:onClick="takeAPhoto"/>
+            android:text="take photos"
+            android:onClick="takePhotos"/>
         <ImageView
             android:layout_marginLeft="30dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageRes"/>
     </LinearLayout>
-    <Button
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+       <Button
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:layout_height="wrap_content"
+           android:onClick="resetPhotos"
+           android:text="Reset"/>
+       <Button
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="save"
+        android:text="send to server"
         android:id="@+id/save"/>
+
+   </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
