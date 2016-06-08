@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             File pictureFile = getOutputMediaFile();
             if (pictureFile == null) {
                 mCamera.stopPreview();
-                mCamera.startPreview();$
+                mCamera.startPreview();
                 mCameraPreview.safeToTakePicture = true;
 
                 return;
