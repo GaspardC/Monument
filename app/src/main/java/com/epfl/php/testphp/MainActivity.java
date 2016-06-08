@@ -1,20 +1,39 @@
 package com.epfl.php.testphp;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.android.internal.http.multipart.MultipartEntity;
 import com.google.android.gms.appindexing.Action;
@@ -52,10 +71,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow;
+
 public class MainActivity extends AppCompatActivity {
 
 
-    TextView content;
+    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 0;
+    private static final int MY_PERMISSIONS_REQUEST_COARSE_LOCATION = 1;
+    TextView content, geoDataTextView;
     EditText fname, email;
     String Name, Email;
     private static String SERVER_ADRESS = "http://dhlabsrv4.epfl.ch/wtm/add.php";
@@ -71,8 +94,17 @@ public class MainActivity extends AppCompatActivity {
     private Bitmap bitmapImage;
     private ProgressDialog dialog;
     private String selectedFilePath;
-    private  StringBuffer response;
+    private StringBuffer response;
     private JSONObject geo_data;
+    private String user_id = "gasp_unique_id";
+
+    LocationManager locationManager;
+    double longitudeBest, latitudeBest;
+
+
+    private ArrayList<PhotoEntity> mData = new ArrayList<>(0);
+    private TextSwitcher mTitle;
+
 
     @Override
 
@@ -83,19 +115,93 @@ public class MainActivity extends AppCompatActivity {
 
         content = (TextView) findViewById(R.id.content);
         fname = (EditText) findViewById(R.id.user_id);
-        email = (EditText) findViewById(R.id.geo_data);
+        geoDataTextView = (TextView) findViewById(R.id.geo_data);
 
         geo_data = new JSONObject();
-        JSONObject location = new JSONObject();
 
-        try {
-            location.put("lat",37.4224764);
-            location.put("long",-122.0842499);
-            geo_data.put("location",location);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        getLoc();
+        setUploadBehavior();
+        setUpCoverFlow();
 
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    private void setUpCoverFlow() {
+        Drawable draw1 = getDrawable(R.drawable.image_1);
+        Drawable draw2 = getDrawable(R.drawable.image_2);
+        Drawable draw3 = getDrawable(R.drawable.image_3);
+
+        assert ((BitmapDrawable) draw1) != null;
+        Bitmap bit1 =((BitmapDrawable) draw1).getBitmap();
+        assert ((BitmapDrawable) draw2) != null;
+        Bitmap bit2 =((BitmapDrawable) draw2).getBitmap();
+        assert ((BitmapDrawable) draw3) != null;
+        Bitmap bit3 =((BitmapDrawable) draw3).getBitmap();
+
+        String path1 = "path1";
+        String path2 = "path2";
+        String path3 = "path3";
+        JSONObject jLoc1 = new JSONObject();
+        JSONObject jLoc2 = new JSONObject();
+        JSONObject jLoc3 = new JSONObject();
+
+
+
+
+
+        mData.add(new PhotoEntity(bit1,path1,jLoc1));
+        mData.add(new PhotoEntity(bit2,path2,jLoc2));
+        mData.add(new PhotoEntity(bit3,path3,jLoc3));
+
+
+
+
+        mTitle = (TextSwitcher) findViewById(R.id.title);
+        mTitle.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+                TextView textView = (TextView) inflater.inflate(R.layout.item_title, null);
+                return textView;
+            }
+        });
+        Animation in = AnimationUtils.loadAnimation(this, R.anim.slide_in_top);
+        Animation out = AnimationUtils.loadAnimation(this, R.anim.slide_out_bottom);
+        mTitle.setInAnimation(in);
+        mTitle.setOutAnimation(out);
+
+        CoverFlowAdapter mAdapter = new CoverFlowAdapter(this);
+        mAdapter.setData(mData);
+        FeatureCoverFlow mCoverFlow = (FeatureCoverFlow) findViewById(R.id.coverflow);
+        mCoverFlow.setAdapter(mAdapter);
+
+        mCoverFlow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                position = position % mData.size();
+                Toast.makeText(MainActivity.this, mData.get(position).filename,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mCoverFlow.setOnScrollPositionListener(new FeatureCoverFlow.OnScrollPositionListener() {
+            @Override
+            public void onScrolledToPosition(int position) {
+                mTitle.setText(mData.get(position).filename);
+            }
+
+            @Override
+            public void onScrolling() {
+                mTitle.setText("");
+            }
+        });
+
+    }
+
+    private void setUploadBehavior() {
 
         Button saveme = (Button) findViewById(R.id.save);
 
@@ -108,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                     Name = fname.getText().toString();
                     Email = email.getText().toString();
 
-                    if(bitmapImage == null) return;
+                    if (bitmapImage == null) return;
 
                     dialog = ProgressDialog.show(MainActivity.this, "", "Uploading File...", true);
 
@@ -139,10 +245,69 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
+    private void getLoc() {
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if(!isLocationEnabled()){
+            showAlert();
+        }
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setCostAllowed(true);
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+        String provider = locationManager.getBestProvider(criteria, true);
+        if (provider != null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_COARSE_LOCATION);
+                return;
+            }
+            locationManager.requestLocationUpdates(provider, 1 * 5 * 1000, 10, locationListenerBest);
+            Location lastLoc = locationManager.getLastKnownLocation(provider);
+            updateLocationJson(lastLoc);
+
+            Toast.makeText(this, "Best Provider is " + provider, Toast.LENGTH_LONG).show();
+        }
+    }
+    private boolean isLocationEnabled() {
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+    private void showAlert() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Enable Location")
+                .setMessage("Your Locations Settings is set to 'Off'.\nPlease Enable Location to " +
+                        "use this app")
+                .setPositiveButton("Location Settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(myIntent);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    }
+                });
+        dialog.show();
+    }
+
 
     public int uploadFile(final String selectedFilePath) {
 
@@ -177,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             try {
                 FileInputStream fileInputStream = new FileInputStream(selectedFile);
-                URL url = new URL(SERVER_ADRESS);
+                URL url = new URL(SERVER_URL);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setDoInput(true);//Allow Inputs
                 connection.setDoOutput(true);//Allow Outputs
@@ -198,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
                 dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
                 dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"user_id\""+ lineEnd);
                 dataOutputStream.writeBytes(lineEnd);
-                dataOutputStream.writeBytes("gasp_unique_id");
+                dataOutputStream.writeBytes(user_id);
                 dataOutputStream.writeBytes(lineEnd);
 
 
@@ -362,6 +527,60 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
         }
+
+    }
+
+    private final LocationListener locationListenerBest = new LocationListener() {
+        public void onLocationChanged(Location location) {
+
+
+            updateLocationJson(location);
+
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+
+    private void updateLocationJson(Location location) {
+        if(location == null) return;
+        longitudeBest = location.getLongitude();
+        latitudeBest = location.getLatitude();
+
+        JSONObject jLocation = new JSONObject();
+
+        try {
+            jLocation.put("lat", latitudeBest);
+            jLocation.put("long", longitudeBest);
+            geo_data.put("location", jLocation);
+            geoDataTextView.setText(geo_data.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+        Log.d("best loc", "long : "+ longitudeBest + " latt : " + latitudeBest);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(MainActivity.this, "Best Provider update", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

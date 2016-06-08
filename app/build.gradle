@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.epfl.php.testphp"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -26,6 +26,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'org.apache.httpcomponents:httpcore:4.4.3'
-
+    compile 'com.github.moondroid.coverflow:library:1.0'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }
