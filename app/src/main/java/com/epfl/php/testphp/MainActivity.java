@@ -7,12 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -31,7 +30,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextSwitcher;
@@ -39,9 +37,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,24 +59,18 @@ import java.util.Date;
 
 import it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 0;
     private static final int MY_PERMISSIONS_REQUEST_COARSE_LOCATION = 1;
     TextView content, geoDataTextView;
-    EditText  email;
-    String Name, Email;
     private static String SERVER_ADRESS = "http://dhlabsrv4.epfl.ch/wtm/add.php";
-    private String SERVER_URL = "http://udle-blog.com/db16/add.php";
+    private String SERVER_URL = "http://udle-blog.com/db16/gaspard/add.php";
     private static final String TAG = MainActivity.class.getSimpleName();
 
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+
     private Bitmap bitmapImage;
     private ProgressDialog dialog;
     private String selectedFilePath;
@@ -99,6 +88,23 @@ public class MainActivity extends AppCompatActivity {
     private Camera mCamera;
     private CameraPreview mCameraPreview;
 
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private double azimuth;
+    float[] mGravity = new float[50];
+    float[] mGeomagnetic = new float[50];
+
+    SensorManager sensorManager;
+    private Sensor sensorAccelerometer;
+    private Sensor sensorMagneticField;
+
+    private float[] valuesAccelerometer;
+    private float[] valuesMagneticField;
+
+    private float[] matrixR;
+    private float[] matrixI;
+    private float[] matrixValues;
+
 
     @Override
 
@@ -114,6 +120,19 @@ public class MainActivity extends AppCompatActivity {
         geo_data = new JSONObject();
 
         getLoc();
+//        sensorActivity = new SensorActivity();
+        sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        sensorAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorMagneticField = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+        valuesAccelerometer = new float[3];
+        valuesMagneticField = new float[3];
+        matrixR = new float[9];
+        matrixI = new float[9];
+        matrixValues = new float[3];
+        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        updateAzimuth();
         setUploadBehavior();
 
         listCurrentPhotos.setDefautlPhotos();
@@ -121,14 +140,22 @@ public class MainActivity extends AppCompatActivity {
         setTitle();
         resetPhotos(null);
         setUpCoverFlow();
-
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        setUpCamera();
 
 
 
+    }
+
+    private void updateAzimuth() {
+        try {
+            geo_data.put("azimuth",azimuth);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void setUpCamera() {
         mCamera = getCameraInstance();
         mCameraPreview = new CameraPreview(this, mCamera);
         final FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
@@ -189,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 if(listPhotos.size() == 1 && listPhotos.get(0).filename.equals("no images")){
                     listPhotos.remove(0);
                 }
+                updateAzimuth();
                 listPhotos.add(new PhotoEntity(bitmap,pictureFile.getAbsolutePath(),updateLocationJson(null)));
                 setUpCoverFlow();
 
@@ -352,7 +380,7 @@ public class MainActivity extends AppCompatActivity {
             Location lastLoc = locationManager.getLastKnownLocation(provider);
              updateLocationJson(lastLoc);
 
-            Toast.makeText(this, "Best Provider is " + provider, Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "Best Provider is " + provider, Toast.LENGTH_LONG).show();
 
         }
     }
@@ -415,7 +443,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             try {
                 FileInputStream fileInputStream = new FileInputStream(selectedFile);
-                URL url = new URL(SERVER_URL);
+                URL url = new URL(SERVER_ADRESS);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setDoInput(true);//Allow Inputs
                 connection.setDoOutput(true);//Allow Outputs
@@ -637,6 +665,7 @@ public class MainActivity extends AppCompatActivity {
                 jLocation.put("lat", latitudeBest);
                 jLocation.put("long", longitudeBest);
                 geo_data.put("location", jLocation);
+
                 geoDataTextView.setText(geo_data.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -681,4 +710,102 @@ public class MainActivity extends AppCompatActivity {
         mData = listCurrentPhotos.listPhoto;
         setUpCoverFlow();
     }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+
+        switch(event.sensor.getType()){
+            case Sensor.TYPE_ACCELEROMETER:
+                for(int i =0; i < 3; i++){
+                    valuesAccelerometer[i] = event.values[i];
+                }
+                break;
+            case Sensor.TYPE_MAGNETIC_FIELD:
+                for(int i =0; i < 3; i++){
+                    valuesMagneticField[i] = event.values[i];
+                }
+                break;
+        }
+
+        boolean success = SensorManager.getRotationMatrix(
+                matrixR,
+                matrixI,
+                valuesAccelerometer,
+                valuesMagneticField);
+
+        if(success) {
+            SensorManager.getOrientation(matrixR, matrixValues);
+
+            azimuth = Math.toDegrees(matrixValues[0]);
+            double pitch = Math.toDegrees(matrixValues[1]);
+            double roll = Math.toDegrees(matrixValues[2]);
+            //Log.d("azimuth",String.valueOf(azimuth));
+
+        }
+//        float[] mags = new float[9];
+//        float[] accels = new float[9];
+//        switch (event.sensor.getType()) {
+//            case Sensor.TYPE_MAGNETIC_FIELD:
+//                mags = event.values.clone();
+//                break;
+//            case Sensor.TYPE_ACCELEROMETER:
+//                accels = event.values.clone();
+//                break;
+//        }
+//
+//        if (mags != null && accels != null) {
+//            float[] gravity = new float[9];
+//            float[] magnetic = new float[9];
+//            SensorManager.getRotationMatrix(gravity, magnetic, accels, mags);
+//            float[] outGravity = new float[9];
+//            SensorManager.remapCoordinateSystem(gravity, SensorManager.AXIS_X,SensorManager.AXIS_Z, outGravity);
+//            float[] values = new float[3];
+//            SensorManager.getOrientation(outGravity, values);
+//
+//            azimuth = values[0] * 57.2957795f;
+//            Log.d("azimuth",String.valueOf(azimuth));
+//            float pitch = values[1] * 57.2957795f;
+//            float roll = values[2] * 57.2957795f;
+//            mags = null;
+//            accels = null;
+//        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this,
+                sensorAccelerometer,
+                SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this,
+                sensorMagneticField,
+                SensorManager.SENSOR_DELAY_NORMAL);
+
+        // Get the Camera instance as the activity achieves full user focus
+        if (mCamera == null) {
+            setUpCamera(); // Local method to handle camera initialization
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+        if (mCamera != null) {
+            mCamera.setPreviewCallback(null);
+            mCameraPreview.getHolder().removeCallback(mCameraPreview);
+//            mCamera.release();
+            mCamera.stopPreview();
+            mCamera.release();
+            mCamera = null;
+        }
+    }
+
+
+
 }
