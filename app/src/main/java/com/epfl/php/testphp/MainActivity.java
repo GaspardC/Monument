@@ -25,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -56,6 +57,8 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Timer;
 
 import it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow;
 
@@ -105,6 +108,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private float[] matrixI;
     private float[] matrixValues;
 
+    Timer timer = new Timer();
+    private FrameLayout preview;
+    Camera.PictureCallback mPicture;
+
 
     @Override
 
@@ -140,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setTitle();
         resetPhotos(null);
         setUpCoverFlow();
+        preview = (FrameLayout) findViewById(R.id.camera_preview);
         setUpCamera();
 
 
@@ -156,10 +164,47 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void setUpCamera() {
+        mPicture = new Camera.PictureCallback() {
+            @Override
+            public void onPictureTaken(byte[] data, Camera camera) {
+                File pictureFile = getOutputMediaFile();
+                if (pictureFile == null) {
+                    mCamera.stopPreview();
+                    mCamera.startPreview();
+                    mCameraPreview.safeToTakePicture = true;
+
+                    return;
+                }
+                try {
+                    FileOutputStream fos = new FileOutputStream(pictureFile);
+                    fos.write(data);
+                    fos.close();
+                    Bitmap bitmap = PhotoManager.resizeIfNeeded(400,pictureFile.getAbsolutePath());
+                    ArrayList<PhotoEntity> listPhotos = listCurrentPhotos.listPhoto;
+                    if(listPhotos.size() == 1 && listPhotos.get(0).filename.equals("no images")){
+                        listPhotos.remove(0);
+                    }
+                    updateAzimuth();
+                    listPhotos.add(new PhotoEntity(bitmap,pictureFile.getAbsolutePath(),updateLocationJson(null)));
+                    setUpCoverFlow();
+
+                } catch (FileNotFoundException e) {
+                    Log.d("exeception",e.toString());
+
+                } catch (IOException e) {
+                    Log.d("exeception",e.toString());
+                }
+                mCamera.stopPreview();
+                mCamera.startPreview();
+                mCameraPreview.safeToTakePicture = true;
+
+            }
+
+        };
+
+
         mCamera = getCameraInstance();
         mCameraPreview = new CameraPreview(this, mCamera);
-        final FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
-        assert preview != null;
         preview.addView(mCameraPreview);
         mCamera.startPreview();
 
@@ -196,43 +241,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return camera;
     }
 
-    Camera.PictureCallback mPicture = new Camera.PictureCallback() {
-        @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
-            File pictureFile = getOutputMediaFile();
-            if (pictureFile == null) {
-                mCamera.stopPreview();
-                mCamera.startPreview();
-                mCameraPreview.safeToTakePicture = true;
 
-                return;
-            }
-            try {
-                FileOutputStream fos = new FileOutputStream(pictureFile);
-                fos.write(data);
-                fos.close();
-                Bitmap bitmap = PhotoManager.resizeIfNeeded(400,pictureFile.getAbsolutePath());
-                ArrayList<PhotoEntity> listPhotos = listCurrentPhotos.listPhoto;
-                if(listPhotos.size() == 1 && listPhotos.get(0).filename.equals("no images")){
-                    listPhotos.remove(0);
-                }
-                updateAzimuth();
-                listPhotos.add(new PhotoEntity(bitmap,pictureFile.getAbsolutePath(),updateLocationJson(null)));
-                setUpCoverFlow();
-
-            } catch (FileNotFoundException e) {
-                Log.d("exeception",e.toString());
-
-            } catch (IOException e) {
-                Log.d("exeception",e.toString());
-            }
-            mCamera.stopPreview();
-            mCamera.startPreview();
-            mCameraPreview.safeToTakePicture = true;
-
-        }
-
-    };
 
     private static File getOutputMediaFile() {
         File mediaStorageDir = new File(
@@ -790,6 +799,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (mCamera == null) {
             setUpCamera(); // Local method to handle camera initialization
         }
+
     }
 
     @Override
@@ -799,12 +809,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (mCamera != null) {
             mCamera.setPreviewCallback(null);
             mCameraPreview.getHolder().removeCallback(mCameraPreview);
-//            mCamera.release();
             mCamera.stopPreview();
             mCamera.release();
             mCamera = null;
+            preview.removeView(mCameraPreview);
+            mCameraPreview = null;
         }
+
     }
+
+
 
 
 

@@ -46,6 +46,10 @@ public class CameraPreview extends SurfaceView implements
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
         this.getHolder().removeCallback(this);
+        if (mCamera != null) {
+            // Call stopPreview() to stop updating the preview surface.
+            mCamera.stopPreview();
+        }
 //        mCamera.stopPreview();
 //        mCamera.release();
 //        mCamera = null;
