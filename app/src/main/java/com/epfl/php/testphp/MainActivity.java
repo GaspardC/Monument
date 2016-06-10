@@ -17,6 +17,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
@@ -214,12 +215,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                    new CountDownTimer(5000,1000){
+//
+//                        @Override
+//                        public void onFinish() {
+//
+//                        }
+//
+//                        @Override
+//                        public void onTick(long millisUntilFinished) {
+//                            if (mCameraPreview.safeToTakePicture) {
+//                                mCamera.takePicture(null, null, mPicture);
+//                            }
+//                        }
+//
+//                    }.start();
                 if (mCameraPreview.safeToTakePicture) {
                     mCamera.takePicture(null, null, mPicture);
-
+                    mCameraPreview.safeToTakePicture = false;
+                }
                 }
 
-            }
+
         });
     }
 
@@ -754,33 +772,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             //Log.d("azimuth",String.valueOf(azimuth));
 
         }
-//        float[] mags = new float[9];
-//        float[] accels = new float[9];
-//        switch (event.sensor.getType()) {
-//            case Sensor.TYPE_MAGNETIC_FIELD:
-//                mags = event.values.clone();
-//                break;
-//            case Sensor.TYPE_ACCELEROMETER:
-//                accels = event.values.clone();
-//                break;
-//        }
-//
-//        if (mags != null && accels != null) {
-//            float[] gravity = new float[9];
-//            float[] magnetic = new float[9];
-//            SensorManager.getRotationMatrix(gravity, magnetic, accels, mags);
-//            float[] outGravity = new float[9];
-//            SensorManager.remapCoordinateSystem(gravity, SensorManager.AXIS_X,SensorManager.AXIS_Z, outGravity);
-//            float[] values = new float[3];
-//            SensorManager.getOrientation(outGravity, values);
-//
-//            azimuth = values[0] * 57.2957795f;
-//            Log.d("azimuth",String.valueOf(azimuth));
-//            float pitch = values[1] * 57.2957795f;
-//            float roll = values[2] * 57.2957795f;
-//            mags = null;
-//            accels = null;
-//        }
+
 
     }
 
