@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class FirstActivity extends AppCompatActivity {
+public class  FirstActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,11 @@ public class FirstActivity extends AppCompatActivity {
 
     public void goToDisplayActivity(View view) {
         startActivity(new Intent(this,Obj3DView.class));
+
+    }
+
+    public void goToTriangleActivity(View view) {
+        startActivity(new Intent(this,TriangleActivity.class));
 
     }
 }

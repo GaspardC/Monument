@@ -8,6 +8,7 @@ import min3d.core.RendererActivity;
 import min3d.parser.IParser;
 import min3d.parser.Parser;
 import min3d.vos.Light;
+
 public class Obj3DView extends RendererActivity {
     private Object3dContainer faceObject3D;
     /** Called when the activity is first created. */

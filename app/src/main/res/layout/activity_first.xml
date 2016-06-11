@@ -10,11 +10,20 @@
     tools:context="com.epfl.php.testphp.FirstActivity">
 
     <Button
+        android:id="@+id/displayTest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:onClick="goToDisplayActivity"
         android:text="Display Test"/>
+
+    <Button
+        android:id="@+id/traingleTest"
+        android:layout_below="@+id/displayTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="goToTriangleActivity"
+        android:text="Triangle Test"/>
 
     <LinearLayout
         android:layout_centerInParent="true"
