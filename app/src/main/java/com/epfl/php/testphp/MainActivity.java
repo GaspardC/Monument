@@ -112,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Timer timer = new Timer();
     private FrameLayout preview;
     Camera.PictureCallback mPicture;
+    private PhotoEntity lastPhotoEntity;
+    private boolean cameraIsRecording = false;
 
 
     @Override
@@ -186,7 +188,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         listPhotos.remove(0);
                     }
                     updateAzimuth();
-                    listPhotos.add(new PhotoEntity(bitmap,pictureFile.getAbsolutePath(),updateLocationJson(null)));
+                    lastPhotoEntity = new PhotoEntity(bitmap,pictureFile.getAbsolutePath(),updateLocationJson(null));
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            try {
+                                //creating new thread to handle Http Operations
+                                    uploadFile(lastPhotoEntity);
+
+                            } catch (OutOfMemoryError e) {
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(MainActivity.this, "Insufficient Memory!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }
+
+                        }
+                    }).start();
+                    listPhotos.add(lastPhotoEntity);
                     setUpCoverFlow();
 
                 } catch (FileNotFoundException e) {
@@ -210,31 +234,40 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mCamera.startPreview();
 
 
-        Button captureButton = (Button) findViewById(R.id.button_capture);
+        final Button captureButton = (Button) findViewById(R.id.button_capture);
         assert captureButton != null;
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-//                    new CountDownTimer(5000,1000){
-//
-//                        @Override
-//                        public void onFinish() {
-//
-//                        }
-//
-//                        @Override
-//                        public void onTick(long millisUntilFinished) {
-//                            if (mCameraPreview.safeToTakePicture) {
-//                                mCamera.takePicture(null, null, mPicture);
-//                            }
-//                        }
-//
-//                    }.start();
-                if (mCameraPreview.safeToTakePicture) {
-                    mCamera.takePicture(null, null, mPicture);
-                    mCameraPreview.safeToTakePicture = false;
+                if(!cameraIsRecording){
+                    cameraIsRecording = true;
+                    captureButton.setBackground(getDrawable(R.drawable.button_cam_recording));
+                    new CountDownTimer(10000,1000){
+
+                        @Override
+                        public void onFinish() {
+                            captureButton.setBackground(getDrawable(R.drawable.button_cam));
+
+                        }
+
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            if (mCameraPreview.safeToTakePicture) {
+                                mCamera.takePicture(null, null, mPicture);
+                                mCameraPreview.safeToTakePicture = false;
+                            }
+                        }
+
+                    }.start();
                 }
+                else{
+                    timer.cancel();
+                    cameraIsRecording = false;
+                    captureButton.setBackground(getDrawable(R.drawable.button_cam));
+
+                }
+
                 }
 
 
@@ -611,7 +644,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     }
                 });
             }
-            dialog.dismiss();
+            if(dialog!= null ) dialog.dismiss();
             return serverResponseCode;
         }
 

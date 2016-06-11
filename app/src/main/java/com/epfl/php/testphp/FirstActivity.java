@@ -26,4 +26,9 @@ public class FirstActivity extends AppCompatActivity {
             startActivity(new Intent(this,MainActivity.class));
         }
     }
+
+    public void goToDisplayActivity(View view) {
+        startActivity(new Intent(this,Obj3DView.class));
+
+    }
 }
