@@ -4,7 +4,10 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -19,6 +22,11 @@ public class TriangleActivity extends AppCompatActivity {
     private Square square;
     private Point point;
     private Point point2;
+    private MyOpenGLRenderer mRenderer;
+    private float mPreviousX;
+    private float mPreviousY;
+    private float mDensity;
+
 
     /** Called when the activity is first created. */
     @Override
@@ -27,12 +35,51 @@ public class TriangleActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        final DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        mDensity = displayMetrics.density;
+
         glView = new GLSurfaceView(this);
-        glView.setRenderer(new MyOpenGLRenderer());
+        glView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event != null)
+                {
+                    float x = event.getX();
+                    float y = event.getY();
+
+                    if (event.getAction() == MotionEvent.ACTION_MOVE)
+                    {
+                        if (mRenderer != null)
+                        {
+                            float deltaX = (x - mPreviousX) / mDensity / 200f;
+                            float deltaY = (y - mPreviousY) / mDensity / 200f;
+
+                            mRenderer.mDeltaX += deltaX;
+                            mRenderer.mDeltaY += deltaY;
+
+                            Log.d("gggg", String.valueOf(deltaX) + String.valueOf(deltaY));
+                        }
+                    }
+
+                    mPreviousX = x;
+                    mPreviousY = y;
+
+                    return true;
+                }
+                return false;
+            }
+        });
+        mRenderer = new MyOpenGLRenderer();
+        glView.setRenderer(mRenderer);
         setContentView(glView);
     }
 
     class MyOpenGLRenderer implements GLSurfaceView.Renderer {
+
+        public float mDeltaX;
+        public float mDeltaY;
 
         @Override
         public void onSurfaceChanged(GL10 gl, int width, int height) {
@@ -50,7 +97,7 @@ public class TriangleActivity extends AppCompatActivity {
 
             square = new Square();
             point = new Point( -0.50f,  1.0f, 0.0f, 1.0f,0.0f,0.0f);
-            point2 = new Point(-0.0f, 0.50f, 3.5f, 0.0f, 0.0f, 1.0f);
+            point2 = new Point(-0.0f, 0.50f, 1.5f, 0.0f, 0.0f, 1.0f);
 
         }
 
@@ -75,7 +122,9 @@ public class TriangleActivity extends AppCompatActivity {
 
             // Draw our square.
             gl.glLoadIdentity();
-            gl.glTranslatef(0, 0, -5);
+            gl.glTranslatef(mDeltaX, -mDeltaY, -5);
+//            deltaX = 0;
+//            deltaY = 0;
 //            square.draw(gl); // ( NEW )
             point.draw(gl);
             point2.draw(gl);
