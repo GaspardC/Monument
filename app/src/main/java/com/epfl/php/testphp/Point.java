@@ -24,13 +24,14 @@ public class Point {
     // Our index buffer.
     private ShortBuffer indexBuffer;
 
-    private float red,blue,green ;
+    private float red,blue,green,alpha ;
 
-    public Point(float x,float y, float z,float red, float green, float blue) {
+    public Point(float x,float y, float z,float red, float green, float blue,float alpha) {
 
         this.red = red;
         this.blue = blue;
         this.green = green;
+        this.alpha = alpha;
 
         // a float is 4 bytes, therefore we multiply the number if
         // vertices with 4.
@@ -75,7 +76,7 @@ public class Point {
 
 //        gl.glDrawElements(GL10.GL_TRIANGLES, indices.length,
 //                GL10.GL_UNSIGNED_SHORT, indexBuffer);
-        gl.glColor4f(red, green, blue, 0.5f);
+        gl.glColor4f(red, green, blue, alpha);
         gl.glPointSize(30.0f);
         gl.glDrawElements(GL10.GL_POINTS, indices.length,
                 GL10.GL_UNSIGNED_SHORT, indexBuffer);
