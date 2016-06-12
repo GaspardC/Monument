@@ -29,7 +29,8 @@ public class Obj3DView extends RendererActivity {
         faceObject3D.scale().x = faceObject3D.scale().y = faceObject3D.scale().z = 0.009f;
         scene.addChild(faceObject3D);
     }
-    @Override    public void updateScene() {
+    @Override
+    public void updateScene() {
         faceObject3D.rotation().x += 0.5;
         faceObject3D.rotation().z += 1;
     }

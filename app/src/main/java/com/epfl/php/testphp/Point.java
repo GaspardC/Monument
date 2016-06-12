@@ -76,7 +76,7 @@ public class Point {
 //        gl.glDrawElements(GL10.GL_TRIANGLES, indices.length,
 //                GL10.GL_UNSIGNED_SHORT, indexBuffer);
         gl.glColor4f(red, green, blue, 0.5f);
-        gl.glPointSize(30.0f);
+        gl.glPointSize(3000.0f);
         gl.glDrawElements(GL10.GL_POINTS, indices.length,
                 GL10.GL_UNSIGNED_SHORT, indexBuffer);
 
