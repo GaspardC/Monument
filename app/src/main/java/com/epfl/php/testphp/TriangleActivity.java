@@ -18,6 +18,7 @@ public class TriangleActivity extends AppCompatActivity {
     private Triangle		triangle2;
     private Square square;
     private Point point;
+    private Point point2;
 
     /** Called when the activity is first created. */
     @Override
@@ -49,6 +50,8 @@ public class TriangleActivity extends AppCompatActivity {
 
             square = new Square();
             point = new Point( -0.50f,  1.0f, 0.0f, 1.0f,0.0f,0.0f);
+            point2 = new Point(-0.0f, 0.50f, 3.5f, 0.0f, 0.0f, 1.0f);
+
         }
 
         @Override
@@ -75,6 +78,7 @@ public class TriangleActivity extends AppCompatActivity {
             gl.glTranslatef(0, 0, -5);
 //            square.draw(gl); // ( NEW )
             point.draw(gl);
+            point2.draw(gl);
         }
     }
 }
