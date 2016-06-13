@@ -26,7 +26,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -58,12 +57,11 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Timer;
 
 import it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class UploadActivity extends AppCompatActivity implements SensorEventListener {
 
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 0;
@@ -71,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     TextView content, geoDataTextView;
     private static String SERVER_ADRESS = "http://dhlabsrv4.epfl.ch/wtm/add.php";
     private String SERVER_URL = "http://udle-blog.com/db16/gaspard/add.php";
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = UploadActivity.class.getSimpleName();
 
 
 
@@ -120,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_upload);
 
         listCurrentPhotos = new ListCurrentPhotos(this);
 
@@ -202,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(MainActivity.this, "Insufficient Memory!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(UploadActivity.this, "Insufficient Memory!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -243,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 if(!cameraIsRecording){
                     cameraIsRecording = true;
                     captureButton.setBackground(getDrawable(R.drawable.button_cam_recording));
-                    new CountDownTimer(10000,1000){
+                    new CountDownTimer(20000,2000){
 
                         @Override
                         public void onFinish() {
@@ -319,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mTitle.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
-                LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+                LayoutInflater inflater = LayoutInflater.from(UploadActivity.this);
                 TextView textView = (TextView) inflater.inflate(R.layout.item_title, null);
                 return textView;
             }
@@ -343,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 position = position % mData.size();
-                Toast.makeText(MainActivity.this, mData.get(position).filename,
+                Toast.makeText(UploadActivity.this, mData.get(position).filename,
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -374,7 +372,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                     if (listCurrentPhotos.listPhoto.size() == 0) return;
 
-                    dialog = ProgressDialog.show(MainActivity.this, "", "Uploading File...", true);
+                    dialog = ProgressDialog.show(UploadActivity.this, "", "Uploading File...", true);
 
                     new Thread(new Runnable() {
                         @Override
@@ -390,7 +388,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(MainActivity.this, "Insufficient Memory!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(UploadActivity.this, "Insufficient Memory!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                                 dialog.dismiss();
@@ -429,10 +427,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
-                ActivityCompat.requestPermissions(MainActivity.this,
+                ActivityCompat.requestPermissions(UploadActivity.this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_FINE_LOCATION);
-                ActivityCompat.requestPermissions(MainActivity.this,
+                ActivityCompat.requestPermissions(UploadActivity.this,
                         new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                         MY_PERMISSIONS_REQUEST_COARSE_LOCATION);
             }
@@ -561,7 +559,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         //write the bytes read from inputstream
                         dataOutputStream.write(buffer, 0, bufferSize);
                     } catch (OutOfMemoryError e) {
-                        Toast.makeText(MainActivity.this, "Insufficient Memory!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UploadActivity.this, "Insufficient Memory!", Toast.LENGTH_SHORT).show();
                     }
                     bytesAvailable = fileInputStream.available();
                     bufferSize = Math.min(bytesAvailable, maxBufferSize);
@@ -574,7 +572,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 try{
                     serverResponseCode = connection.getResponseCode();
                 }catch (OutOfMemoryError e){
-                    Toast.makeText(MainActivity.this, "Memory Insufficient!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadActivity.this, "Memory Insufficient!", Toast.LENGTH_SHORT).show();
                 }
                 String serverResponseMessage = connection.getResponseMessage();
 
@@ -623,7 +621,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.this, "File Not Found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UploadActivity.this, "File Not Found", Toast.LENGTH_SHORT).show();
                     }
                 });
             } catch (MalformedURLException e) {
@@ -631,7 +629,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.this, "URL Error!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UploadActivity.this, "URL Error!", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -640,7 +638,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.this, "Cannot Read/Write File", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UploadActivity.this, "Cannot Read/Write File", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -652,7 +650,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
     public void takePhotos(View view) {
-        PhotoManager.takePhoto(MainActivity.this);
+        PhotoManager.takePhoto(UploadActivity.this);
     }
 
 
@@ -756,7 +754,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void run() {
                 Log.d("provider","Best Provider update");
-//                Toast.makeText(MainActivity.this, "Best Provider update", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(UploadActivity.this, "Best Provider update", Toast.LENGTH_SHORT).show();
             }
         });
 

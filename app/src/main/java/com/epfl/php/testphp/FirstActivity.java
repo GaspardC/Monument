@@ -3,7 +3,6 @@ package com.epfl.php.testphp;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -53,7 +52,7 @@ public class  FirstActivity extends AppCompatActivity {
         }
         else{
             MonumentApplication.user_id = id;
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this,UploadActivity.class));
         }
     }
 
