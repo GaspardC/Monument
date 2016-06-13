@@ -129,6 +129,7 @@ public class PhotoManager {
         if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
         if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
         if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+        rotationAngle = 90;
         Matrix matrix = new Matrix();
         matrix.postRotate(rotationAngle);
 //        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);

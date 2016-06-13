@@ -28,10 +28,15 @@ public class Point {
 
     public Point(float x,float y, float z,float red, float green, float blue,float alpha) {
 
+        if(red>1.0f) red = red/256.0f;
         this.red = red;
-        this.blue = blue;
+        if(green>1.0f) green = green/256.0f;
         this.green = green;
+        if(blue>1.0f) blue = blue/256.0f;
+        this.blue = blue;
+        if(alpha>1.0f) alpha = alpha/256.0f;
         this.alpha = alpha;
+
 
         // a float is 4 bytes, therefore we multiply the number if
         // vertices with 4.
@@ -77,7 +82,7 @@ public class Point {
 //        gl.glDrawElements(GL10.GL_TRIANGLES, indices.length,
 //                GL10.GL_UNSIGNED_SHORT, indexBuffer);
         gl.glColor4f(red, green, blue, alpha);
-        gl.glPointSize(30.0f);
+        gl.glPointSize(3.0f);
         gl.glDrawElements(GL10.GL_POINTS, indices.length,
                 GL10.GL_UNSIGNED_SHORT, indexBuffer);
 
