@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:onClick="goToDisplayActivity"
-        android:text="Display Test"/>
+        android:text="Display .OBJ"/>
 
     <Button
         android:id="@+id/traingleTest"
@@ -23,10 +23,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="goToTriangleActivity"
-        android:text="Triangle Test"/>
+        android:text="Display points"/>
 
     <LinearLayout
-        android:layout_centerInParent="true"
+        android:layout_above="@+id/buttonStartUpload"
         android:layout_marginLeft="20dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -47,9 +47,10 @@
             />
     </LinearLayout>
     <Button
+        android:id="@+id/buttonStartUpload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:onClick="goToMainActivity"
-        android:text="Start"/>
+        android:text="Start upload images"/>
 </RelativeLayout>
