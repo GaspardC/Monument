@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.4.0_6d0b23232866ff9cf8435a1cc5394b943cda3b89.jar" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.4.0_6d0b23232866ff9cf8435a1cc5394b943cda3b89/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.4.0_e2b3570b4122653850c294e157f8f42accfb79b4/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_e2b3570b4122653850c294e157f8f42accfb79b4.jar" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="281eefe5076c7e23b5b1a7caf99bfa8a9fa022f0">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_cd975d5e3beedc0d95e01c181eb0acd7790d5990/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-23.4.0_e6c53c16eddd1757c954f295e5d4b9bf413b10ec.jar" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-23.4.0_e6c53c16eddd1757c954f295e5d4b9bf413b10ec/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.4.0_54790782690fcaa12630b4f1077a1afb0fb8c78f/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.github.moondroid.coverflow/library/1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="42dd7a8aa383b6967e640be8149e11b8ada22944">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/pre-dexed/debug/com.github.moondroid.coverflow-library-1.0_fedca7fb88f55b41d2df010b0497df624ff2a720.jar" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.github.moondroid.coverflow/library/1.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="42dd7a8aa383b6967e640be8149e11b8ada22944">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.github.moondroid.coverflow-library-1.0_fedca7fb88f55b41d2df010b0497df624ff2a720/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-23.4.0_e27c78ae2ddadd4514f11db7f34ee4048d9d1547.jar" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.4.0_e27c78ae2ddadd4514f11db7f34ee4048d9d1547/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.4.0_54790782690fcaa12630b4f1077a1afb0fb8c78f.jar" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.1.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appindexing-8.1.0_a58f5d0c7b6811a21f6d0977d33b2a60d1d1d709/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appindexing-8.1.0_a58f5d0c7b6811a21f6d0977d33b2a60d1d1d709.jar" />
+    </item>
+    <item
+        jar="/Users/Gasp/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.3/e876a79d561e5c6207b78d347e198c8c4531a5e5/httpcore-4.4.3.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="e876a79d561e5c6207b78d347e198c8c4531a5e5">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/httpcore-4.4.3_0d6b7c1e174f89c99e1c51eb71f3355af9986007/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="c604569cb0c6d8c126119d1aebad596bb4943128">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_a747ef6ff6f311a4601b863e5ffa0958a01a42e2/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.3/e876a79d561e5c6207b78d347e198c8c4531a5e5/httpcore-4.4.3.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e876a79d561e5c6207b78d347e198c8c4531a5e5">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/pre-dexed/debug/httpcore-4.4.3_0d6b7c1e174f89c99e1c51eb71f3355af9986007.jar" />
+    </item>
+    <item
+        jar="/Users/Gasp/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/18.0/cce0823396aa693798f8882e64213b1772032b09/guava-18.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="cce0823396aa693798f8882e64213b1772032b09">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/guava-18.0_6d04b1d665527b7b3dc64d9956797903ede2206c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/18.0/cce0823396aa693798f8882e64213b1772032b09/guava-18.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="cce0823396aa693798f8882e64213b1772032b09">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/pre-dexed/debug/guava-18.0_6d04b1d665527b7b3dc64d9956797903ede2206c.jar" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/pre-dexed/debug/internal_impl-23.4.0_d63bf3a3e829db623b888607010601ac83cce081.jar" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-8.1.0_a70592cd739bcee6b41027e4e9825782dbced487/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.1.0_a70592cd739bcee6b41027e4e9825782dbced487.jar" />
+    </item>
+    <item
+        jar="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/Users/Gasp/Downloads/DraggablePanel-develop/TestPhp/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.4.0_d63bf3a3e829db623b888607010601ac83cce081/classes.dex" />
+    </item>
+
+</items>
