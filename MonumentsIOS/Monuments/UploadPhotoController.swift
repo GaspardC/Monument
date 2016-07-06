@@ -8,9 +8,10 @@
 
 import UIKit
 import AVFoundation
+import CoreLocation
 
 
-class UploadPhotoController: UIViewController{
+class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     var previewView : UIView!;
     var boxView:UIView!;
     let myButton: UIButton = UIButton()
@@ -25,6 +26,8 @@ class UploadPhotoController: UIViewController{
     var uniqueIdentifier:String!
     let jSonValues:NSMutableDictionary = NSMutableDictionary()
 
+    var locationManager: CLLocationManager = CLLocationManager()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +52,14 @@ class UploadPhotoController: UIViewController{
         self.view.addSubview(myButton)
         
         self.setupAVCapture();
+        
+        
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -57,6 +68,22 @@ class UploadPhotoController: UIViewController{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    func locationManager(manager: CLLocationManager!,didUpdateLocations locations: [CLLocation])
+    {
+        var latestLocation: AnyObject = locations[locations.count - 1]
+        
+       var lat = String(format: "%.4f",
+                               latestLocation.coordinate.latitude)
+        var long = String(format: "%.4f",
+                                latestLocation.coordinate.longitude)
+        }
+    
+    func locationManager(manager: CLLocationManager!,
+                         didFailWithError error: NSError!) {
+        
+    }
+    
     
     override func shouldAutorotate() -> Bool {
         if (UIDevice.currentDevice().orientation == UIDeviceOrientation.LandscapeLeft ||
