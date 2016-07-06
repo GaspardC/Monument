@@ -21,7 +21,7 @@
                                 <rect key="frame" x="206" y="493" width="189" height="30"/>
                                 <state key="normal" title="Take Photos"/>
                                 <connections>
-                                    <segue destination="O9I-ds-xh4" kind="show" id="wEZ-C8-1uM"/>
+                                    <segue destination="O9I-ds-xh4" kind="show" identifier="segueToUpload" id="wEZ-C8-1uM"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aNM-LA-iDa">
@@ -41,6 +41,9 @@
                             <constraint firstItem="aNM-LA-iDa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="er3-lb-c86"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="myTextField" destination="aNM-LA-iDa" id="Rti-Rw-Mz3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -49,7 +52,7 @@
         <!--UploadPhotoController-->
         <scene sceneID="knV-4q-46I">
             <objects>
-                <viewController id="O9I-ds-xh4" userLabel="UploadPhotoController" sceneMemberID="viewController">
+                <viewController id="O9I-ds-xh4" userLabel="UploadPhotoController" customClass="UploadPhotoController" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="U1V-ir-782"/>
                         <viewControllerLayoutGuide type="bottom" id="RCe-m9-b9c"/>
@@ -61,6 +64,9 @@
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oQ-zR-FZy">
                                 <rect key="frame" x="173" y="543" width="276" height="30"/>
                                 <state key="normal" title="Reset"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="WP0-ly-biq"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

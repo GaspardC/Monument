@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C93114611D2D03320062F837 /* PhotoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93114601D2D03320062F837 /* PhotoEntity.swift */; };
 		C943CB1A1D14B00C00D94493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CB191D14B00C00D94493 /* AppDelegate.swift */; };
 		C943CB1C1D14B00C00D94493 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CB1B1D14B00C00D94493 /* ViewController.swift */; };
 		C943CB1F1D14B00C00D94493 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C943CB1D1D14B00C00D94493 /* Main.storyboard */; };
@@ -14,6 +15,9 @@
 		C943CB241D14B00C00D94493 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C943CB221D14B00C00D94493 /* LaunchScreen.storyboard */; };
 		C943CB2F1D14B00C00D94493 /* MonumentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CB2E1D14B00C00D94493 /* MonumentsTests.swift */; };
 		C943CB3A1D14B00C00D94493 /* MonumentsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CB391D14B00C00D94493 /* MonumentsUITests.swift */; };
+		C99237551D28382B000208DB /* UploadPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99237541D28382B000208DB /* UploadPhotoController.swift */; };
+		C99237561D28382B000208DB /* UploadPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99237541D28382B000208DB /* UploadPhotoController.swift */; };
+		C99237571D28382B000208DB /* UploadPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99237541D28382B000208DB /* UploadPhotoController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C93114601D2D03320062F837 /* PhotoEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEntity.swift; sourceTree = "<group>"; };
 		C943CB161D14B00C00D94493 /* Monuments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monuments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C943CB191D14B00C00D94493 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C943CB1B1D14B00C00D94493 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +52,7 @@
 		C943CB351D14B00C00D94493 /* MonumentsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonumentsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C943CB391D14B00C00D94493 /* MonumentsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonumentsUITests.swift; sourceTree = "<group>"; };
 		C943CB3B1D14B00C00D94493 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C99237541D28382B000208DB /* UploadPhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPhotoController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,8 @@
 			children = (
 				C943CB191D14B00C00D94493 /* AppDelegate.swift */,
 				C943CB1B1D14B00C00D94493 /* ViewController.swift */,
+				C99237541D28382B000208DB /* UploadPhotoController.swift */,
+				C93114601D2D03320062F837 /* PhotoEntity.swift */,
 				C943CB1D1D14B00C00D94493 /* Main.storyboard */,
 				C943CB201D14B00C00D94493 /* Assets.xcassets */,
 				C943CB221D14B00C00D94493 /* LaunchScreen.storyboard */,
@@ -256,8 +264,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C99237551D28382B000208DB /* UploadPhotoController.swift in Sources */,
 				C943CB1C1D14B00C00D94493 /* ViewController.swift in Sources */,
 				C943CB1A1D14B00C00D94493 /* AppDelegate.swift in Sources */,
+				C93114611D2D03320062F837 /* PhotoEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C943CB2F1D14B00C00D94493 /* MonumentsTests.swift in Sources */,
+				C99237561D28382B000208DB /* UploadPhotoController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C943CB3A1D14B00C00D94493 /* MonumentsUITests.swift in Sources */,
+				C99237571D28382B000208DB /* UploadPhotoController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,6 +496,7 @@
 				C943CB401D14B00C00D94493 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C943CB411D14B00C00D94493 /* Build configuration list for PBXNativeTarget "MonumentsTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +505,7 @@
 				C943CB431D14B00C00D94493 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C943CB441D14B00C00D94493 /* Build configuration list for PBXNativeTarget "MonumentsUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +514,7 @@
 				C943CB461D14B00C00D94493 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
