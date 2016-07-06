@@ -46,12 +46,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UploadActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UploadActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/epfl/php/testphp/UploadActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.481482">
-              <caret line="524" column="73" selection-start-line="524" selection-start-column="73" selection-end-line="524" selection-end-column="73" />
-              <folding />
+            <state vertical-scroll-proportion="0.33226836">
+              <caret line="169" column="38" selection-start-line="169" selection-start-column="24" selection-end-line="169" selection-end-column="38" />
+              <folding>
+                <element signature="e#7571#7572#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -66,10 +68,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PhotoEntity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PhotoEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/epfl/php/testphp/PhotoEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.20673813">
+            <state vertical-scroll-proportion="0.0">
               <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
               <folding />
             </state>
@@ -2081,19 +2083,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/epfl/php/testphp/UploadActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/epfl/php/testphp/PhotoEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.481482">
-          <caret line="524" column="73" selection-start-line="524" selection-start-column="73" selection-end-line="524" selection-end-column="73" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/epfl/php/testphp/PhotoEntity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/epfl/php/testphp/UploadActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20673813">
-          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
-          <folding />
+        <state vertical-scroll-proportion="0.33226836">
+          <caret line="169" column="38" selection-start-line="169" selection-start-column="24" selection-end-line="169" selection-end-column="38" />
+          <folding>
+            <element signature="e#7571#7572#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

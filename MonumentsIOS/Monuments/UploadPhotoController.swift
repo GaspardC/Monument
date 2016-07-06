@@ -25,8 +25,12 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     var arrayImages = Array<UIImage>()
     var uniqueIdentifier:String!
     let jSonValues:NSMutableDictionary = NSMutableDictionary()
+    var stillImageOutput: AVCaptureStillImageOutput!
 
     var locationManager: CLLocationManager = CLLocationManager()
+    var lat:String = ""
+    var long:String = ""
+    
     
     
     override func viewDidLoad() {
@@ -45,7 +49,7 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
         myButton.setTitle("press me", forState: UIControlState.Normal)
         myButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         myButton.layer.cornerRadius = 20.0
-        myButton.layer.position = CGPoint(x: self.view.frame.width/2, y:self.view.frame.height - 50)
+        myButton.layer.position = CGPoint(x: self.view.frame.width/2, y:self.view.frame.height - 45)
         myButton.addTarget(self, action: #selector(UploadPhotoController.onClickMyButton(_:)), forControlEvents: .TouchUpInside)
         
         self.view.addSubview(self.boxView);
@@ -73,9 +77,9 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     {
         var latestLocation: AnyObject = locations[locations.count - 1]
         
-       var lat = String(format: "%.4f",
+         lat = String(format: "%.4f",
                                latestLocation.coordinate.latitude)
-        var long = String(format: "%.4f",
+         long = String(format: "%.4f",
                                 latestLocation.coordinate.longitude)
         }
     
@@ -98,20 +102,22 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     
     func onClickMyButton(sender: UIButton){
         print("button pressed")
-        UIGraphicsBeginImageContextWithOptions(self.previewView.bounds.size, true, 0)
-        self.previewView.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
         
-        arrayImages.append(image!)
+        self.stillImageOutput.captureStillImageAsynchronouslyFromConnection(self.stillImageOutput.connectionWithMediaType(AVMediaTypeVideo)) { (buffer:CMSampleBuffer!, error:NSError!) -> Void in
+            let image = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
+            let data_image = UIImage(data: image)
+            self.arrayImages.append(data_image!)
+
+        }
     }
-}
+    
+   }
 
 
 // AVCaptureVideoDataOutputSampleBufferDelegate protocol and related methods
 extension UploadPhotoController:  AVCaptureVideoDataOutputSampleBufferDelegate{
     func setupAVCapture(){
-        session.sessionPreset = AVCaptureSessionPreset640x480;
+        session.sessionPreset = AVCaptureSessionPresetHigh;
         
         let devices = AVCaptureDevice.devices();
         // Loop through all the capture devices on this phone
@@ -145,6 +151,16 @@ extension UploadPhotoController:  AVCaptureVideoDataOutputSampleBufferDelegate{
         if self.session.canAddInput(deviceInput){
             self.session.addInput(deviceInput);
         }
+        
+        self.stillImageOutput = AVCaptureStillImageOutput()
+        self.session.addOutput(self.stillImageOutput)
+        
+//        do {
+//            try self.session.addInput(AVCaptureDeviceInput(device: captureDevice))
+//        } catch let error as NSError {
+//            print(error)
+//        }
+        
         
         self.videoDataOutput = AVCaptureVideoDataOutput();
         self.videoDataOutput.alwaysDiscardsLateVideoFrames=true;
