@@ -11,15 +11,27 @@ import UIKit
 
 class PhotoEntity {
     
-    var name: String
     var image: UIImage
     var json: NSData
+    var azimuth : String
+    var long : String
+    var lat : String
 
     
-    init(name: String, image : UIImage, JSONData : NSData) {
-        self.name = name
+    init(){
+        self.image = UIImage()
+        self.json = NSData()
+        self.lat = ""
+        self.long = ""
+        self.azimuth = ""
+    }
+    
+    init( image : UIImage, JSONData : NSData, azimuth : String, long : String, lat : String) {
         self.image = image
         self.json = NSData()
+        self.lat = lat
+        self.long = long
+        self.azimuth = azimuth
 
         do {
             self.json = try NSJSONSerialization.JSONObjectWithData(JSONData, options: .AllowFragments) as! NSData

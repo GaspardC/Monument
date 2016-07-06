@@ -24,7 +24,7 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     var previewLayer:AVCaptureVideoPreviewLayer!;
     var captureDevice : AVCaptureDevice!
     let session=AVCaptureSession();
-    var arrayImages = Array<UIImage>()
+    var arrayImages = Array<PhotoEntity>()
     var uniqueIdentifier:String!
     let jSonValues:NSMutableDictionary = NSMutableDictionary()
     var stillImageOutput: AVCaptureStillImageOutput!
@@ -34,6 +34,7 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     var long:String = ""
     var azimuth: String = "default_id"
     
+    var photoEntity = PhotoEntity();
     
     
     let motionManager: CMMotionManager = CMMotionManager()
@@ -101,9 +102,9 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
         super.didReceiveMemoryWarning()
     }
     
-    func locationManager(manager: CLLocationManager!,didUpdateLocations locations: [CLLocation])
+    func locationManager(manager: CLLocationManager,didUpdateLocations locations: [CLLocation])
     {
-        var latestLocation: AnyObject = locations[locations.count - 1]
+        let latestLocation: AnyObject = locations[locations.count - 1]
         
          lat = String(format: "%.4f",
                                latestLocation.coordinate.latitude)
@@ -111,8 +112,8 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
                                 latestLocation.coordinate.longitude)
         }
     
-    func locationManager(manager: CLLocationManager!,
-                         didFailWithError error: NSError!) {
+    func locationManager(manager: CLLocationManager,
+                         didFailWithError error: NSError) {
         
     }
     
@@ -132,6 +133,7 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
         print("button pressed")
         
         
+        // Create Flash Animation
         let v = UIView(frame: self.view.bounds)
         v.backgroundColor = UIColor.whiteColor()
         v.alpha = 1
@@ -146,12 +148,18 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
         
         
         
+        // Take the pho directly from the camera (not the preview)
         self.stillImageOutput.captureStillImageAsynchronouslyFromConnection(self.stillImageOutput.connectionWithMediaType(AVMediaTypeVideo)) { (buffer:CMSampleBuffer!, error:NSError!) -> Void in
             let image = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
             let data_image = UIImage(data: image)
-            self.arrayImages.append(data_image!)
+            //self.arrayImages.append(data_image!)
 
+            
+            // Save the photoEntity
+            self.photoEntity = PhotoEntity(image: data_image!,JSONData: NSData(),azimuth: self.azimuth,long: self.long,lat: self.lat)
+            self.arrayImages.append(self.photoEntity)
         }
+        
     }
     
    }
