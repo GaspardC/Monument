@@ -75,6 +75,7 @@
                             <constraint firstItem="0oQ-zR-FZy" firstAttribute="centerX" secondItem="TaH-Rt-LQq" secondAttribute="centerX" id="Eqk-T3-dgK"/>
                         </constraints>
                     </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qod-e4-mfr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

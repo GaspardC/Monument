@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 import CoreLocation
+import CoreMotion
+
 
 
 class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
@@ -30,7 +32,12 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     var locationManager: CLLocationManager = CLLocationManager()
     var lat:String = ""
     var long:String = ""
+    var azimuth: String = "default_id"
     
+    
+    
+    let motionManager: CMMotionManager = CMMotionManager()
+
     
     
     override func viewDidLoad() {
@@ -43,12 +50,12 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
         //Add a view on top of the cameras' view
         self.boxView = UIView(frame: self.view.frame);
         
-        myButton.frame = CGRectMake(0,0,200,40)
+        myButton.frame = CGRectMake(0,0,60,60)
         myButton.backgroundColor = UIColor.redColor()
         myButton.layer.masksToBounds = true
-        myButton.setTitle("press me", forState: UIControlState.Normal)
+//        myButton.setTitle("press me", forState: UIControlState.Normal)
         myButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        myButton.layer.cornerRadius = 20.0
+        myButton.layer.cornerRadius = 30.0
         myButton.layer.position = CGPoint(x: self.view.frame.width/2, y:self.view.frame.height - 45)
         myButton.addTarget(self, action: #selector(UploadPhotoController.onClickMyButton(_:)), forControlEvents: .TouchUpInside)
         
@@ -63,6 +70,27 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
+        
+        
+        motionManager.deviceMotionUpdateInterval = 0.2
+        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()!, withHandler:{
+            deviceManager, error in
+            print("Test") // no print
+        })
+        
+        print(motionManager.deviceMotionActive)
+        
+        if motionManager.accelerometerAvailable {
+            motionManager.accelerometerUpdateInterval = 0.01
+            motionManager.startAccelerometerUpdatesToQueue(NSOperationQueue.mainQueue()) {
+                [weak self] (data: CMAccelerometerData?, error: NSError?) in
+                if let acceleration = data?.acceleration {
+//                    print(acceleration.y)
+                    self!.azimuth = String(format: "%f",acceleration.y)
+                }
+            }
+        }
         
     }
     
@@ -102,6 +130,21 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     
     func onClickMyButton(sender: UIButton){
         print("button pressed")
+        
+        
+        let v = UIView(frame: self.view.bounds)
+        v.backgroundColor = UIColor.whiteColor()
+        v.alpha = 1
+        
+        self.view.addSubview(v)
+        UIView.animateWithDuration(0.6, animations: {
+            v.alpha = 0.0
+            }, completion: {(finished:Bool) in
+                print("flash")
+                v.removeFromSuperview()
+        })
+        
+        
         
         self.stillImageOutput.captureStillImageAsynchronouslyFromConnection(self.stillImageOutput.connectionWithMediaType(AVMediaTypeVideo)) { (buffer:CMSampleBuffer!, error:NSError!) -> Void in
             let image = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
