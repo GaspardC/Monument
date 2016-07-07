@@ -42,7 +42,8 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     
     let motionManager: CMMotionManager = CMMotionManager()
 
-    let url_to_request:String = "http://udle-blog.com/db16/gaspard/add.php"
+//    let url_to_request:String = "http://udle-blog.com/db16/gaspard/add.php"
+      let url_to_request:String = "http://dhlabsrv4.epfl.ch/wtm/add.php"
 
     
     override func viewDidLoad() {

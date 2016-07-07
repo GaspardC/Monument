@@ -8,6 +8,11 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>http://dhlabsrv4.epfl.ch/wtm/add.php</key>
+			<dict>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 			<key>http://udle-blog.com/db16/gaspard/add.php</key>
 			<dict>
 				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,17 +18,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aNM-LA-iDa">
-                                <rect key="frame" x="222" y="285" width="157" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aNM-LA-iDa">
+                                <rect key="frame" x="322" y="485" width="221" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="157" id="j9e-wW-Uh5"/>
+                                    <constraint firstAttribute="width" constant="100" id="Eve-zz-y5W"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u2o-3J-dli">
-                                <rect key="frame" x="206" y="493" width="189" height="30"/>
-                                <state key="normal" title="Take Photos"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Enter you unique ID :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSV-hX-Cyc">
+                                <rect key="frame" x="30" y="489" width="159" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" alpha="0.89999997615814209" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2U-ad-LlK">
+                                <rect key="frame" x="168" y="97" width="311" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.73715257785468924" blue="0.25821522239401429" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="311" id="xE7-YT-Oll"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-2"/>
+                                <state key="normal" title="Load Obj">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="C1e-yl-Fde" kind="show" id="iTF-Hu-6fL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u2o-3J-dli">
+                                <rect key="frame" x="168" y="550" width="311" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.88825341739157004" blue="0.063025444970515987" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="311" id="OSj-re-GAp"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-2"/>
+                                <state key="normal" title="Take Photos">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="O9I-ds-xh4" kind="show" identifier="segueToUpload" id="wEZ-C8-1uM"/>
                                 </connections>
@@ -35,10 +73,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="u2o-3J-dli" secondAttribute="bottom" constant="77" id="QaL-ND-yU7"/>
-                            <constraint firstItem="aNM-LA-iDa" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="T0B-Rh-QD5"/>
-                            <constraint firstItem="u2o-3J-dli" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ugg-Pv-rvO"/>
-                            <constraint firstItem="aNM-LA-iDa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="er3-lb-c86"/>
+                            <constraint firstItem="o2U-ad-LlK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Csf-fu-Kxb"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JSV-hX-Cyc" secondAttribute="bottom" constant="90" id="FTh-3P-qRC"/>
+                            <constraint firstItem="o2U-ad-LlK" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="77" id="Msr-ab-cqS"/>
+                            <constraint firstItem="u2o-3J-dli" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RSJ-Yh-mbV"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="u2o-3J-dli" secondAttribute="bottom" constant="20" id="Wdk-PC-s1l"/>
+                            <constraint firstItem="JSV-hX-Cyc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="e9R-sz-ofZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aNM-LA-iDa" secondAttribute="trailing" constant="20" id="eIi-69-6wf"/>
+                            <constraint firstItem="u2o-3J-dli" firstAttribute="top" secondItem="aNM-LA-iDa" secondAttribute="bottom" constant="35" id="hWV-ia-ewy"/>
                         </constraints>
                     </view>
                     <connections>
@@ -48,6 +90,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="305" y="349"/>
+        </scene>
+        <!--LoadObjController-->
+        <scene sceneID="CcT-GT-zJw">
+            <objects>
+                <viewController id="C1e-yl-Fde" userLabel="LoadObjController" customClass="LoadObjViewController" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NqQ-d9-lfq"/>
+                        <viewControllerLayoutGuide type="bottom" id="RcN-zf-iYa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lsd-sg-aHD">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="segueLoadToMain" id="jTK-BV-iz0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J4Z-vW-pGg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="792" y="-360"/>
         </scene>
         <!--UploadPhotoController-->
         <scene sceneID="knV-4q-46I">
@@ -72,4 +135,7 @@
             <point key="canvasLocation" x="993" y="349"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="jTK-BV-iz0"/>
+    </inferredMetricsTieBreakers>
 </document>
