@@ -60,7 +60,30 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
         
         countDown = INITIAL_COUNT_DOWN_VALUE
         setUpButtons()
+        setUpLocationAndSensors()
+        setUpSwipeBack()
         
+        
+    }
+    func setUpSwipeBack() -> (){
+        
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(UploadPhotoController.handleSwipe(_:)))
+        
+        rightSwipe.direction = .Right
+        
+        self.previewView.addGestureRecognizer(rightSwipe)
+
+
+        
+
+
+    }
+    func handleSwipe(sender:UISwipeGestureRecognizer){
+        performSegueWithIdentifier("segueUploadToMain", sender: nil)
+
+        
+    }
+    func setUpLocationAndSensors() -> (){
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -81,14 +104,12 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
             motionManager.startAccelerometerUpdatesToQueue(NSOperationQueue.mainQueue()) {
                 [weak self] (data: CMAccelerometerData?, error: NSError?) in
                 if let acceleration = data?.acceleration {
-//                    print(acceleration.y)
+                    //                    print(acceleration.y)
                     self!.azimuth = String(format: "%f",acceleration.y)
                 }
             }
         }
-        
     }
-    
     func setUpButtons() -> () {
         
         //Add a counter down view on top of the cameras' view
