@@ -185,7 +185,7 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
         
         let image : UIImage = pE.image
         
-        let image_data = UIImagePNGRepresentation(image)
+        let image_data = UIImageJPEGRepresentation(image, 100.0)
         
         
         if(image_data == nil)
@@ -196,8 +196,14 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
         
         let body = NSMutableData()
         
-        let fname = "test.png"
-        let mimetype = "image/png"
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = NSDateFormatterStyle.LongStyle
+        formatter.timeStyle = .MediumStyle
+        
+        let dateString = formatter.stringFromDate( NSDate())
+        
+        let fname = dateString
+        let mimetype = "image/jpeg"
         
         //define the data post parameter
         
