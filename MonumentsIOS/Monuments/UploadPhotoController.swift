@@ -33,7 +33,7 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     var locationManager: CLLocationManager = CLLocationManager()
     var lat:String = ""
     var long:String = ""
-    var azimuth: String = "default_id"
+    var azimuth: String = ""
     var countDown = 30
     
     var photoEntity = PhotoEntity();
@@ -41,11 +41,15 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     
     let motionManager: CMMotionManager = CMMotionManager()
 
-    
+    let url_to_request:String = "http://udle-blog.com/db16/gaspard/add.php"
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if (uniqueIdentifier == ""){
+            uniqueIdentifier = "user_ios_test_id"
+        }
         self.previewView = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height));
         self.previewView.contentMode = UIViewContentMode.ScaleAspectFit
         self.view.addSubview(previewView);
@@ -170,6 +174,93 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     func uploadPhoto(pE : PhotoEntity ) -> () {
         
         
+        let request = NSMutableURLRequest(URL: NSURL(string:url_to_request)!)
+        request.HTTPMethod = "POST"
+        
+        let boundary = generateBoundaryString()
+        
+        //define the multipart request type
+        
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        let image : UIImage = pE.image
+        
+        let image_data = UIImagePNGRepresentation(image)
+        
+        
+        if(image_data == nil)
+        {
+            return
+        }
+        
+        
+        let body = NSMutableData()
+        
+        let fname = "test.png"
+        let mimetype = "image/png"
+        
+        //define the data post parameter
+        
+        body.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        body.appendData("Content-Disposition:form-data; name=\"user_id\"\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        body.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        body.appendData(uniqueIdentifier.dataUsingEncoding(NSUTF8StringEncoding)!)
+        body.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        
+        body.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        body.appendData("Content-Disposition:form-data; name=\"geo_data\"\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        body.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        body.appendData((pE.jsonString).dataUsingEncoding(NSUTF8StringEncoding)!)
+        body.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+
+        
+        
+        body.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        body.appendData("Content-Disposition:form-data; name=\"picture\"; filename=\"\(fname)\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        body.appendData("Content-Type: \(mimetype)\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        body.appendData(image_data!)
+        body.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        
+        
+        body.appendData("--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        
+        
+        
+        request.HTTPBody = body
+        
+        
+        
+        let session = NSURLSession.sharedSession()
+        
+        
+        let task = session.dataTaskWithRequest(request) {
+            (
+            let data, let response, let error) in
+            
+            guard let _:NSData = data, let _:NSURLResponse = response  where error == nil else {
+                print("error")
+                return
+            }
+            
+            let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            print(dataString)
+            
+        }
+        
+        task.resume()
+        
+        
+        
+        
+//        let data = (("user_id="+uniqueIdentifier)+"&"+("geo_data="+String(pE.json))+"&"+).dataUsingEncoding(NSUTF8StringEncoding)
+        
+       
+        
+    }
+    
+    func generateBoundaryString() -> String
+    {
+        return "Boundary-\(NSUUID().UUIDString)"
     }
     
     func onClickbuttonTakePicture(sender: UIButton){
@@ -200,6 +291,7 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
             
             // Save the photoEntity
             self.photoEntity = PhotoEntity(image: data_image!,JSONData: NSData(),azimuth: self.azimuth,long: self.long,lat: self.lat)
+            self.uploadPhoto(self.photoEntity)
             self.arrayImages.append(self.photoEntity)
         }
         
