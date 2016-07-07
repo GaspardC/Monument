@@ -12,7 +12,7 @@ import UIKit
 class PhotoEntity {
     
     var image: UIImage
-    var json: NSData
+    var json: [String: AnyObject]
     var azimuth : String
     var long : String
     var lat : String
@@ -20,7 +20,7 @@ class PhotoEntity {
     
     init(){
         self.image = UIImage()
-        self.json = NSData()
+        self.json = ["": ""]
         self.lat = ""
         self.long = ""
         self.azimuth = ""
@@ -28,16 +28,32 @@ class PhotoEntity {
     
     init( image : UIImage, JSONData : NSData, azimuth : String, long : String, lat : String) {
         self.image = image
-        self.json = NSData()
+        self.json = ["": ""]
         self.lat = lat
         self.long = long
         self.azimuth = azimuth
-
-        do {
-            self.json = try NSJSONSerialization.JSONObjectWithData(JSONData, options: .AllowFragments) as! NSData
+        setJson(lat,long: long,azimuth: azimuth)
+        
+        if NSJSONSerialization.isValidJSONObject(json) {
+            print("dictPoint is valid JSON")
+            print(json)
+            
         }
-        catch {
-            print(error)
-        }
+        
+//        do {
+//            self.json = try NSJSONSerialization.JSONObjectWithData(JSONData, options: .AllowFragments) as! NSData
+//        }
+//        catch {
+//            print(error)
+//        }
+    }
+    
+    func setJson(lat: String,long : String, azimuth : String) -> () {
+        self.json = [
+            "jLoc":
+                ["lat":lat,
+                "long": long],
+            "azimuth": azimuth
+        ]
     }
 }

@@ -17,13 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u2o-3J-dli">
-                                <rect key="frame" x="206" y="493" width="189" height="30"/>
-                                <state key="normal" title="Take Photos"/>
-                                <connections>
-                                    <segue destination="O9I-ds-xh4" kind="show" identifier="segueToUpload" id="wEZ-C8-1uM"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aNM-LA-iDa">
                                 <rect key="frame" x="222" y="285" width="157" height="30"/>
                                 <constraints>
@@ -32,6 +25,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u2o-3J-dli">
+                                <rect key="frame" x="206" y="493" width="189" height="30"/>
+                                <state key="normal" title="Take Photos"/>
+                                <connections>
+                                    <segue destination="O9I-ds-xh4" kind="show" identifier="segueToUpload" id="wEZ-C8-1uM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -60,20 +60,7 @@
                     <view key="view" contentMode="scaleToFill" id="TaH-Rt-LQq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oQ-zR-FZy">
-                                <rect key="frame" x="173" y="543" width="276" height="30"/>
-                                <state key="normal" title="Reset"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="WP0-ly-biq"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="RCe-m9-b9c" firstAttribute="top" secondItem="0oQ-zR-FZy" secondAttribute="bottom" constant="27" id="AuH-ok-pLm"/>
-                            <constraint firstItem="0oQ-zR-FZy" firstAttribute="centerX" secondItem="TaH-Rt-LQq" secondAttribute="centerX" id="Eqk-T3-dgK"/>
-                        </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                 </viewController>

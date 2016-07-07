@@ -16,8 +16,9 @@ import CoreMotion
 class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     var previewView : UIView!;
     var boxView:UIView!;
-    let myButton: UIButton = UIButton()
-    
+    let buttonTakePicture: UIButton = UIButton()
+    let buttonCountDown: UIButton = UIButton()
+    var INITIAL_COUNT_DOWN_VALUE = 10
     //Camera Capture requiered properties
     var videoDataOutput: AVCaptureVideoDataOutput!;
     var videoDataOutputQueue : dispatch_queue_t!;
@@ -33,6 +34,7 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     var lat:String = ""
     var long:String = ""
     var azimuth: String = "default_id"
+    var countDown = 30
     
     var photoEntity = PhotoEntity();
     
@@ -48,24 +50,11 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
         self.previewView.contentMode = UIViewContentMode.ScaleAspectFit
         self.view.addSubview(previewView);
         
-        //Add a view on top of the cameras' view
-        self.boxView = UIView(frame: self.view.frame);
-        
-        myButton.frame = CGRectMake(0,0,60,60)
-        myButton.backgroundColor = UIColor.redColor()
-        myButton.layer.masksToBounds = true
-//        myButton.setTitle("press me", forState: UIControlState.Normal)
-        myButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        myButton.layer.cornerRadius = 30.0
-        myButton.layer.position = CGPoint(x: self.view.frame.width/2, y:self.view.frame.height - 45)
-        myButton.addTarget(self, action: #selector(UploadPhotoController.onClickMyButton(_:)), forControlEvents: .TouchUpInside)
-        
-        self.view.addSubview(self.boxView);
-        self.view.addSubview(myButton)
-        
+
         self.setupAVCapture();
         
-        
+        countDown = INITIAL_COUNT_DOWN_VALUE
+        setUpButtons()
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
@@ -93,6 +82,41 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
             }
         }
         
+    }
+    
+    func setUpButtons() -> () {
+        
+        //Add a counter down view on top of the cameras' view
+        //        self.boxView = UIView(frame: self.view.frame);
+        
+        
+        buttonCountDown.frame = CGRectMake(0,0,40,40)
+        buttonCountDown.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.0)
+        buttonCountDown.layer.masksToBounds = true
+        buttonCountDown.layer.borderWidth = 3
+        buttonCountDown.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.7).CGColor//
+        buttonCountDown.setTitle(String(countDown), forState: UIControlState.Normal)
+        buttonCountDown.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        buttonCountDown.layer.cornerRadius = 3.0
+        buttonCountDown.layer.position = CGPoint(x: self.view.frame.width - 35, y: 50)
+        buttonCountDown.addTarget(self, action: #selector(UploadPhotoController.onClickbuttonCountDown(_:)), forControlEvents: .TouchUpInside)
+        
+        
+        buttonTakePicture.frame = CGRectMake(0,0,80,80)
+        buttonTakePicture.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
+        buttonTakePicture.layer.masksToBounds = true
+        buttonTakePicture.layer.borderWidth = 4
+        buttonTakePicture.layer.borderColor = UIColor.whiteColor().CGColor//
+        
+        //        buttonTakePicture.setTitle("press me", forState: UIControlState.Normal)
+        buttonTakePicture.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        buttonTakePicture.layer.cornerRadius = 40.0
+        buttonTakePicture.layer.position = CGPoint(x: self.view.frame.width/2, y:self.view.frame.height - 60)
+        buttonTakePicture.addTarget(self, action: #selector(UploadPhotoController.onClickbuttonTakePicture(_:)), forControlEvents: .TouchUpInside)
+        
+        //        self.view.addSubview(self.boxView);
+        self.view.addSubview(buttonTakePicture)
+        self.view.addSubview(buttonCountDown)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -129,7 +153,26 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
         }
     }
     
-    func onClickMyButton(sender: UIButton){
+    func onClickbuttonCountDown(sender: UIButton){
+        print("countdown clicked")
+        if (INITIAL_COUNT_DOWN_VALUE == 0){
+            INITIAL_COUNT_DOWN_VALUE = 30
+        }
+        else{
+            INITIAL_COUNT_DOWN_VALUE -= 2
+        }
+        countDown = INITIAL_COUNT_DOWN_VALUE
+        buttonCountDown.setTitle(String(INITIAL_COUNT_DOWN_VALUE), forState: UIControlState.Normal)
+
+        
+    }
+    
+    func uploadPhoto(pE : PhotoEntity ) -> () {
+        
+        
+    }
+    
+    func onClickbuttonTakePicture(sender: UIButton){
         print("button pressed")
         
         
