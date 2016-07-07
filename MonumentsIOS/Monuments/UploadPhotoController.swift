@@ -35,6 +35,7 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
     var long:String = ""
     var azimuth: String = ""
     var countDown = 30
+    var timerCountDown = NSTimer()
     
     var photoEntity = PhotoEntity();
     
@@ -269,8 +270,13 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
         return "Boundary-\(NSUUID().UUIDString)"
     }
     
-    func onClickbuttonTakePicture(sender: UIButton){
-        print("button pressed")
+    func takePhotoTImer() {
+            countDown -= 1
+            if(countDown == 0){
+                countDown = INITIAL_COUNT_DOWN_VALUE
+                timerCountDown.invalidate()
+            }
+            buttonCountDown.setTitle(String(countDown), forState: UIControlState.Normal)
         
         
         // Create Flash Animation
@@ -293,13 +299,24 @@ class UploadPhotoController: UIViewController , CLLocationManagerDelegate{
             let image = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
             let data_image = UIImage(data: image)
             //self.arrayImages.append(data_image!)
-
             
-            // Save the photoEntity
+            
+            // Save the photoEntity and Upload it to the server
             self.photoEntity = PhotoEntity(image: data_image!,JSONData: NSData(),azimuth: self.azimuth,long: self.long,lat: self.lat)
             self.uploadPhoto(self.photoEntity)
             self.arrayImages.append(self.photoEntity)
         }
+
+        
+    }
+    func onClickbuttonTakePicture(sender: UIButton){
+        print("button pressed")
+        
+        
+         timerCountDown = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(UploadPhotoController.takePhotoTImer), userInfo: nil, repeats: true)
+        timerCountDown.fire()
+
+        
         
     }
     
