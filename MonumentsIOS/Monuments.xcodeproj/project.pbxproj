@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C92CFF211D323B28007AD2DF /* DisplayPOintsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92CFF201D323B28007AD2DF /* DisplayPOintsViewController.swift */; };
+		C92CFF231D323C0B007AD2DF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92CFF221D323C0B007AD2DF /* CoreGraphics.framework */; };
+		C92CFF251D323C13007AD2DF /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92CFF241D323C13007AD2DF /* GLKit.framework */; };
+		C92CFF271D323C18007AD2DF /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92CFF261D323C18007AD2DF /* OpenGLES.framework */; };
+		C92CFF2B1D323C60007AD2DF /* BaseEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92CFF291D323C60007AD2DF /* BaseEffect.swift */; };
+		C92CFF2C1D323C60007AD2DF /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92CFF2A1D323C60007AD2DF /* Vertex.swift */; };
+		C92CFF2F1D324008007AD2DF /* SimpleFragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = C92CFF2D1D324008007AD2DF /* SimpleFragmentShader.glsl */; };
+		C92CFF301D324008007AD2DF /* SimpleVertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = C92CFF2E1D324008007AD2DF /* SimpleVertexShader.glsl */; };
 		C93114611D2D03320062F837 /* PhotoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93114601D2D03320062F837 /* PhotoEntity.swift */; };
 		C943CB1A1D14B00C00D94493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CB191D14B00C00D94493 /* AppDelegate.swift */; };
 		C943CB1C1D14B00C00D94493 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CB1B1D14B00C00D94493 /* ViewController.swift */; };
@@ -39,6 +47,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C92CFF201D323B28007AD2DF /* DisplayPOintsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayPOintsViewController.swift; sourceTree = "<group>"; };
+		C92CFF221D323C0B007AD2DF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C92CFF241D323C13007AD2DF /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		C92CFF261D323C18007AD2DF /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		C92CFF291D323C60007AD2DF /* BaseEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseEffect.swift; path = "../../../../LearningOpenGLES2-master/03.ColoredSquare/ColoredSquare/BaseEffect.swift"; sourceTree = "<group>"; };
+		C92CFF2A1D323C60007AD2DF /* Vertex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vertex.swift; path = "../../../../LearningOpenGLES2-master/03.ColoredSquare/ColoredSquare/Vertex.swift"; sourceTree = "<group>"; };
+		C92CFF2D1D324008007AD2DF /* SimpleFragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleFragmentShader.glsl; path = "../../../../LearningOpenGLES2-master/03.ColoredSquare/ColoredSquare/SimpleFragmentShader.glsl"; sourceTree = "<group>"; };
+		C92CFF2E1D324008007AD2DF /* SimpleVertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleVertexShader.glsl; path = "../../../../LearningOpenGLES2-master/03.ColoredSquare/ColoredSquare/SimpleVertexShader.glsl"; sourceTree = "<group>"; };
 		C93114601D2D03320062F837 /* PhotoEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEntity.swift; sourceTree = "<group>"; };
 		C943CB161D14B00C00D94493 /* Monuments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monuments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C943CB191D14B00C00D94493 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +78,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C92CFF271D323C18007AD2DF /* OpenGLES.framework in Frameworks */,
+				C92CFF251D323C13007AD2DF /* GLKit.framework in Frameworks */,
+				C92CFF231D323C0B007AD2DF /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,9 +101,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C92CFF281D323C26007AD2DF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C92CFF261D323C18007AD2DF /* OpenGLES.framework */,
+				C92CFF241D323C13007AD2DF /* GLKit.framework */,
+				C92CFF221D323C0B007AD2DF /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C92CFF311D324010007AD2DF /* shader */ = {
+			isa = PBXGroup;
+			children = (
+				C92CFF2D1D324008007AD2DF /* SimpleFragmentShader.glsl */,
+				C92CFF2E1D324008007AD2DF /* SimpleVertexShader.glsl */,
+			);
+			name = shader;
+			sourceTree = "<group>";
+		};
 		C943CB0D1D14B00C00D94493 = {
 			isa = PBXGroup;
 			children = (
+				C92CFF281D323C26007AD2DF /* Frameworks */,
 				C943CB181D14B00C00D94493 /* Monuments */,
 				C943CB2D1D14B00C00D94493 /* MonumentsTests */,
 				C943CB381D14B00C00D94493 /* MonumentsUITests */,
@@ -105,11 +144,15 @@
 		C943CB181D14B00C00D94493 /* Monuments */ = {
 			isa = PBXGroup;
 			children = (
+				C92CFF311D324010007AD2DF /* shader */,
+				C92CFF291D323C60007AD2DF /* BaseEffect.swift */,
+				C92CFF2A1D323C60007AD2DF /* Vertex.swift */,
 				C943CB191D14B00C00D94493 /* AppDelegate.swift */,
 				C943CB1B1D14B00C00D94493 /* ViewController.swift */,
 				C99237541D28382B000208DB /* UploadPhotoController.swift */,
 				C93114601D2D03320062F837 /* PhotoEntity.swift */,
 				C980D05D1D2EB952002CFF1A /* LoadObjViewController.swift */,
+				C92CFF201D323B28007AD2DF /* DisplayPOintsViewController.swift */,
 				C943CB1D1D14B00C00D94493 /* Main.storyboard */,
 				C943CB201D14B00C00D94493 /* Assets.xcassets */,
 				C943CB221D14B00C00D94493 /* LaunchScreen.storyboard */,
@@ -242,6 +285,8 @@
 			files = (
 				C943CB241D14B00C00D94493 /* LaunchScreen.storyboard in Resources */,
 				C943CB211D14B00C00D94493 /* Assets.xcassets in Resources */,
+				C92CFF301D324008007AD2DF /* SimpleVertexShader.glsl in Resources */,
+				C92CFF2F1D324008007AD2DF /* SimpleFragmentShader.glsl in Resources */,
 				C943CB1F1D14B00C00D94493 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,9 +314,12 @@
 			files = (
 				C99237551D28382B000208DB /* UploadPhotoController.swift in Sources */,
 				C980D05E1D2EB952002CFF1A /* LoadObjViewController.swift in Sources */,
+				C92CFF211D323B28007AD2DF /* DisplayPOintsViewController.swift in Sources */,
 				C943CB1C1D14B00C00D94493 /* ViewController.swift in Sources */,
 				C943CB1A1D14B00C00D94493 /* AppDelegate.swift in Sources */,
+				C92CFF2C1D323C60007AD2DF /* Vertex.swift in Sources */,
 				C93114611D2D03320062F837 /* PhotoEntity.swift in Sources */,
+				C92CFF2B1D323C60007AD2DF /* BaseEffect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
