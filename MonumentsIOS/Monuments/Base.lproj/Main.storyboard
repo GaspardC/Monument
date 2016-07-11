@@ -135,8 +135,40 @@
                     <glkView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" enableSetNeedsDisplay="NO" id="fqa-9b-x1w">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="9gC-f9-Bza">
+                                <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                <color key="color" red="1" green="0.95640232397699743" blue="0.93997535183111247" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="174" y="303" width="20" height="20"/>
+                                </variation>
+                            </activityIndicatorView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="9gC-f9-Bza" firstAttribute="centerY" secondItem="fqa-9b-x1w" secondAttribute="centerY" id="Czv-vH-11J"/>
+                            <constraint firstItem="9gC-f9-Bza" firstAttribute="centerX" secondItem="fqa-9b-x1w" secondAttribute="centerX" id="oi2-7g-Emc"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="9gC-f9-Bza"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="Czv-vH-11J"/>
+                                <exclude reference="oi2-7g-Emc"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="9gC-f9-Bza"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="Czv-vH-11J"/>
+                                <include reference="oi2-7g-Emc"/>
+                            </mask>
+                        </variation>
                     </glkView>
                     <connections>
+                        <outlet property="loadingIndicator" destination="9gC-f9-Bza" id="dio-TX-yfL"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="segueDisplayToMain" id="e6b-il-CoV"/>
                     </connections>
                 </viewController>

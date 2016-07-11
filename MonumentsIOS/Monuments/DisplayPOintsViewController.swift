@@ -33,6 +33,8 @@ class DisplayPOintsViewController: GLKViewController {
     var glkView: GLKView!
     var glkUpdater: GLKUpdater!
     
+    @IBOutlet var loadingIndicator: UIActivityIndicatorView!
+    
     var vertexBuffer : GLuint = 0
     var indexBuffer: GLuint = 0
     var shader : BaseEffect!
@@ -51,9 +53,16 @@ class DisplayPOintsViewController: GLKViewController {
         2, 3, 0
     ]
     
+    @IBAction func startSpinning() {
+        loadingIndicator.startAnimating()
+    }
+    
+    @IBAction func stopSpinning() {
+        loadingIndicator.stopAnimating()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUpSwipeBack()
 
         
@@ -244,6 +253,10 @@ class HttpDownloader {
 
 class Downloader {
     class func load(URL: NSURL,DCtrl :DisplayPOintsViewController ) {
+        
+        
+        DCtrl.startSpinning()
+        
         let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
         let request = NSMutableURLRequest(URL: URL)
@@ -301,6 +314,8 @@ class Downloader {
                 }
                 
                 print("done")
+                DCtrl.stopSpinning()
+
                 
                 DCtrl.setupGLcontext()
                 DCtrl.setupGLupdater()
