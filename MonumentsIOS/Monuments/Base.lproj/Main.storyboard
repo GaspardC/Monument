@@ -86,23 +86,35 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="C1e-yl-Fde" kind="show" id="iTF-Hu-6fL"/>
+                                    <segue destination="7F0-8h-d1a" kind="show" id="zbQ-mG-7n2"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="o2U-ad-LlK" firstAttribute="top" secondItem="K7t-MH-ZO8" secondAttribute="bottom" constant="48" id="6YK-nJ-TFJ"/>
+                            <constraint firstItem="K7t-MH-ZO8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="72" id="8nh-NS-g4S"/>
                             <constraint firstItem="o2U-ad-LlK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Csf-fu-Kxb"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JSV-hX-Cyc" secondAttribute="bottom" constant="90" id="FTh-3P-qRC"/>
-                            <constraint firstItem="o2U-ad-LlK" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="77" id="Msr-ab-cqS"/>
                             <constraint firstItem="u2o-3J-dli" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RSJ-Yh-mbV"/>
                             <constraint firstItem="K7t-MH-ZO8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RuR-4a-wbg"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="u2o-3J-dli" secondAttribute="bottom" constant="20" id="Wdk-PC-s1l"/>
                             <constraint firstItem="JSV-hX-Cyc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="e9R-sz-ofZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aNM-LA-iDa" secondAttribute="trailing" constant="20" id="eIi-69-6wf"/>
-                            <constraint firstItem="K7t-MH-ZO8" firstAttribute="top" secondItem="o2U-ad-LlK" secondAttribute="bottom" constant="48" id="f2M-9Y-UvK"/>
                             <constraint firstItem="u2o-3J-dli" firstAttribute="top" secondItem="aNM-LA-iDa" secondAttribute="bottom" constant="35" id="hWV-ia-ewy"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="8nh-NS-g4S"/>
+                                <exclude reference="6YK-nJ-TFJ"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="8nh-NS-g4S"/>
+                                <include reference="6YK-nJ-TFJ"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="myTextField" destination="aNM-LA-iDa" id="Rti-Rw-Mz3"/>
@@ -132,27 +144,6 @@
             </objects>
             <point key="canvasLocation" x="179" y="-520"/>
         </scene>
-        <!--LoadObjController-->
-        <scene sceneID="CcT-GT-zJw">
-            <objects>
-                <viewController id="C1e-yl-Fde" userLabel="LoadObjController" customClass="LoadObjViewController" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="NqQ-d9-lfq"/>
-                        <viewControllerLayoutGuide type="bottom" id="RcN-zf-iYa"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="lsd-sg-aHD">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="segueLoadToMain" id="jTK-BV-iz0"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="J4Z-vW-pGg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="792" y="-360"/>
-        </scene>
         <!--UploadPhotoController-->
         <scene sceneID="knV-4q-46I">
             <objects>
@@ -174,6 +165,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qod-e4-mfr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="993" y="349"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="gem-Io-F72">
+            <objects>
+                <viewController id="7F0-8h-d1a" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U4M-4p-bNo"/>
+                        <viewControllerLayoutGuide type="bottom" id="y9o-U5-IA2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vJS-1f-Uuu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xov-cR-SXd">
+                                <rect key="frame" x="0.0" y="358" width="600" height="242"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qs1-U9-XaS">
+                                        <rect key="frame" x="26" y="29" width="553" height="29"/>
+                                        <segments>
+                                            <segment title="Cube"/>
+                                            <segment title="Hat"/>
+                                            <segment title="Ninja"/>
+                                        </segments>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="46" y="51" width="309" height="29"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="segmentSelectionChanged:" destination="7F0-8h-d1a" eventType="valueChanged" id="Sf8-vH-Fit"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" red="0.83903203940000004" green="0.91288630660000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="558" width="400" height="242"/>
+                                </variation>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bLB-4F-1k6" customClass="OpenGLView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="357"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="455"/>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="openGLView" destination="bLB-4F-1k6" id="lhn-fT-OwD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SAX-tR-emH" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="304.5" y="999.75"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

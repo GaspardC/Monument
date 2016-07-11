@@ -59,10 +59,10 @@ class DisplayPOintsViewController: GLKViewController {
         
         readFileFromServer(self)
         
-        setupGLcontext()
-        setupGLupdater()
-        setupShader()
-        setupVertexBuffer()
+//        setupGLcontext()
+//        setupGLupdater()
+//        setupShader()
+//        setupVertexBuffer()
     }
     
     func readFileFromServer(dpCtrl : DisplayPOintsViewController){

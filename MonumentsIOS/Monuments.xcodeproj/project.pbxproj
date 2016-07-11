@@ -15,6 +15,16 @@
 		C92CFF2C1D323C60007AD2DF /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92CFF2A1D323C60007AD2DF /* Vertex.swift */; };
 		C92CFF2F1D324008007AD2DF /* SimpleFragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = C92CFF2D1D324008007AD2DF /* SimpleFragmentShader.glsl */; };
 		C92CFF301D324008007AD2DF /* SimpleVertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = C92CFF2E1D324008007AD2DF /* SimpleVertexShader.glsl */; };
+		C92CFF351D33F686007AD2DF /* Ninja.obj in Resources */ = {isa = PBXBuildFile; fileRef = C92CFF341D33F686007AD2DF /* Ninja.obj */; };
+		C92CFF381D33F6A0007AD2DF /* Wizards_Hat.obj in Resources */ = {isa = PBXBuildFile; fileRef = C92CFF371D33F6A0007AD2DF /* Wizards_Hat.obj */; };
+		C92CFF3D1D33F6AE007AD2DF /* ModelSurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92CFF3B1D33F6AE007AD2DF /* ModelSurface.cpp */; };
+		C92CFF401D33F730007AD2DF /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C92CFF3F1D33F730007AD2DF /* icon.png */; };
+		C92CFF481D33F74C007AD2DF /* GLESMath.c in Sources */ = {isa = PBXBuildFile; fileRef = C92CFF421D33F74C007AD2DF /* GLESMath.c */; };
+		C92CFF491D33F74C007AD2DF /* GLESUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C92CFF451D33F74C007AD2DF /* GLESUtils.m */; };
+		C92CFF4D1D33F763007AD2DF /* FragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = C92CFF4B1D33F763007AD2DF /* FragmentShader.glsl */; };
+		C92CFF4E1D33F763007AD2DF /* VertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = C92CFF4C1D33F763007AD2DF /* VertexShader.glsl */; };
+		C92CFF541D33F82A007AD2DF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C92CFF511D33F82A007AD2DF /* ViewController.m */; };
+		C92CFF581D33FAAE007AD2DF /* OpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C92CFF571D33FAAE007AD2DF /* OpenGLView.mm */; };
 		C93114611D2D03320062F837 /* PhotoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93114601D2D03320062F837 /* PhotoEntity.swift */; };
 		C943CB1A1D14B00C00D94493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CB191D14B00C00D94493 /* AppDelegate.swift */; };
 		C943CB1C1D14B00C00D94493 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CB1B1D14B00C00D94493 /* ViewController.swift */; };
@@ -55,6 +65,25 @@
 		C92CFF2A1D323C60007AD2DF /* Vertex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vertex.swift; path = "../../../../LearningOpenGLES2-master/03.ColoredSquare/ColoredSquare/Vertex.swift"; sourceTree = "<group>"; };
 		C92CFF2D1D324008007AD2DF /* SimpleFragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleFragmentShader.glsl; path = "../../../../LearningOpenGLES2-master/03.ColoredSquare/ColoredSquare/SimpleFragmentShader.glsl"; sourceTree = "<group>"; };
 		C92CFF2E1D324008007AD2DF /* SimpleVertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleVertexShader.glsl; path = "../../../../LearningOpenGLES2-master/03.ColoredSquare/ColoredSquare/SimpleVertexShader.glsl"; sourceTree = "<group>"; };
+		C92CFF341D33F686007AD2DF /* Ninja.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Ninja.obj; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Model/Ninja.obj"; sourceTree = "<group>"; };
+		C92CFF371D33F6A0007AD2DF /* Wizards_Hat.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Wizards_Hat.obj; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Model/Wizards_Hat.obj"; sourceTree = "<group>"; };
+		C92CFF391D33F6AD007AD2DF /* Monuments-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Monuments-Bridging-Header.h"; sourceTree = "<group>"; };
+		C92CFF3A1D33F6AE007AD2DF /* ISurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ISurface.h; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Surface/ISurface.h"; sourceTree = "<group>"; };
+		C92CFF3B1D33F6AE007AD2DF /* ModelSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ModelSurface.cpp; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Surface/ModelSurface.cpp"; sourceTree = "<group>"; };
+		C92CFF3C1D33F6AE007AD2DF /* ModelSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelSurface.h; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Surface/ModelSurface.h"; sourceTree = "<group>"; };
+		C92CFF3F1D33F730007AD2DF /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = "../../../../OpenGLES-master/Tutorial09/icon.png"; sourceTree = "<group>"; };
+		C92CFF421D33F74C007AD2DF /* GLESMath.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = GLESMath.c; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Utils/GLESMath.c"; sourceTree = "<group>"; };
+		C92CFF431D33F74C007AD2DF /* GLESMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLESMath.h; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Utils/GLESMath.h"; sourceTree = "<group>"; };
+		C92CFF441D33F74C007AD2DF /* GLESUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLESUtils.h; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Utils/GLESUtils.h"; sourceTree = "<group>"; };
+		C92CFF451D33F74C007AD2DF /* GLESUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLESUtils.m; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Utils/GLESUtils.m"; sourceTree = "<group>"; };
+		C92CFF461D33F74C007AD2DF /* Quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Quaternion.h; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Utils/Quaternion.h"; sourceTree = "<group>"; };
+		C92CFF471D33F74C007AD2DF /* Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vector.h; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Utils/Vector.h"; sourceTree = "<group>"; };
+		C92CFF4B1D33F763007AD2DF /* FragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FragmentShader.glsl; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Shader/FragmentShader.glsl"; sourceTree = "<group>"; };
+		C92CFF4C1D33F763007AD2DF /* VertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = VertexShader.glsl; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Shader/VertexShader.glsl"; sourceTree = "<group>"; };
+		C92CFF501D33F82A007AD2DF /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/ViewController.h"; sourceTree = "<group>"; };
+		C92CFF511D33F82A007AD2DF /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/ViewController.m"; sourceTree = "<group>"; };
+		C92CFF521D33F82A007AD2DF /* OpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLView.h; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/OpenGLView.h"; sourceTree = "<group>"; };
+		C92CFF571D33FAAE007AD2DF /* OpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenGLView.mm; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/OpenGLView.mm"; sourceTree = "<group>"; };
 		C93114601D2D03320062F837 /* PhotoEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEntity.swift; sourceTree = "<group>"; };
 		C943CB161D14B00C00D94493 /* Monuments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monuments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C943CB191D14B00C00D94493 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +149,72 @@
 			name = shader;
 			sourceTree = "<group>";
 		};
+		C92CFF361D33F68D007AD2DF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		C92CFF3E1D33F6B3007AD2DF /* Surface */ = {
+			isa = PBXGroup;
+			children = (
+				C92CFF3A1D33F6AE007AD2DF /* ISurface.h */,
+				C92CFF3B1D33F6AE007AD2DF /* ModelSurface.cpp */,
+				C92CFF3C1D33F6AE007AD2DF /* ModelSurface.h */,
+			);
+			name = Surface;
+			sourceTree = "<group>";
+		};
+		C92CFF411D33F73A007AD2DF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C92CFF3F1D33F730007AD2DF /* icon.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C92CFF4A1D33F756007AD2DF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C92CFF421D33F74C007AD2DF /* GLESMath.c */,
+				C92CFF431D33F74C007AD2DF /* GLESMath.h */,
+				C92CFF441D33F74C007AD2DF /* GLESUtils.h */,
+				C92CFF451D33F74C007AD2DF /* GLESUtils.m */,
+				C92CFF461D33F74C007AD2DF /* Quaternion.h */,
+				C92CFF471D33F74C007AD2DF /* Vector.h */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		C92CFF4F1D33F766007AD2DF /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Shader;
+			sourceTree = "<group>";
+		};
+		C92CFF561D33FA2D007AD2DF /* LoaderOBJ */ = {
+			isa = PBXGroup;
+			children = (
+				C92CFF3E1D33F6B3007AD2DF /* Surface */,
+				C92CFF361D33F68D007AD2DF /* Model */,
+				C92CFF371D33F6A0007AD2DF /* Wizards_Hat.obj */,
+				C92CFF341D33F686007AD2DF /* Ninja.obj */,
+				C92CFF4F1D33F766007AD2DF /* Shader */,
+				C92CFF4B1D33F763007AD2DF /* FragmentShader.glsl */,
+				C92CFF4C1D33F763007AD2DF /* VertexShader.glsl */,
+				C92CFF4A1D33F756007AD2DF /* Utils */,
+				C92CFF411D33F73A007AD2DF /* Supporting Files */,
+				C92CFF391D33F6AD007AD2DF /* Monuments-Bridging-Header.h */,
+				C92CFF501D33F82A007AD2DF /* ViewController.h */,
+				C92CFF511D33F82A007AD2DF /* ViewController.m */,
+				C92CFF521D33F82A007AD2DF /* OpenGLView.h */,
+				C92CFF571D33FAAE007AD2DF /* OpenGLView.mm */,
+			);
+			name = LoaderOBJ;
+			sourceTree = "<group>";
+		};
 		C943CB0D1D14B00C00D94493 = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +239,7 @@
 		C943CB181D14B00C00D94493 /* Monuments */ = {
 			isa = PBXGroup;
 			children = (
+				C92CFF561D33FA2D007AD2DF /* LoaderOBJ */,
 				C92CFF311D324010007AD2DF /* shader */,
 				C92CFF291D323C60007AD2DF /* BaseEffect.swift */,
 				C92CFF2A1D323C60007AD2DF /* Vertex.swift */,
@@ -284,10 +380,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C943CB241D14B00C00D94493 /* LaunchScreen.storyboard in Resources */,
+				C92CFF4D1D33F763007AD2DF /* FragmentShader.glsl in Resources */,
+				C92CFF4E1D33F763007AD2DF /* VertexShader.glsl in Resources */,
 				C943CB211D14B00C00D94493 /* Assets.xcassets in Resources */,
 				C92CFF301D324008007AD2DF /* SimpleVertexShader.glsl in Resources */,
 				C92CFF2F1D324008007AD2DF /* SimpleFragmentShader.glsl in Resources */,
+				C92CFF401D33F730007AD2DF /* icon.png in Resources */,
 				C943CB1F1D14B00C00D94493 /* Main.storyboard in Resources */,
+				C92CFF351D33F686007AD2DF /* Ninja.obj in Resources */,
+				C92CFF381D33F6A0007AD2DF /* Wizards_Hat.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,7 +415,12 @@
 			files = (
 				C99237551D28382B000208DB /* UploadPhotoController.swift in Sources */,
 				C980D05E1D2EB952002CFF1A /* LoadObjViewController.swift in Sources */,
+				C92CFF481D33F74C007AD2DF /* GLESMath.c in Sources */,
 				C92CFF211D323B28007AD2DF /* DisplayPOintsViewController.swift in Sources */,
+				C92CFF491D33F74C007AD2DF /* GLESUtils.m in Sources */,
+				C92CFF3D1D33F6AE007AD2DF /* ModelSurface.cpp in Sources */,
+				C92CFF581D33FAAE007AD2DF /* OpenGLView.mm in Sources */,
+				C92CFF541D33F82A007AD2DF /* ViewController.m in Sources */,
 				C943CB1C1D14B00C00D94493 /* ViewController.swift in Sources */,
 				C943CB1A1D14B00C00D94493 /* AppDelegate.swift in Sources */,
 				C92CFF2C1D323C60007AD2DF /* Vertex.swift in Sources */,
@@ -465,10 +571,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Monuments/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.epfl.Monuments;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Monuments/Monuments-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -476,10 +585,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Monuments/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.epfl.Monuments;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Monuments/Monuments-Bridging-Header.h";
 			};
 			name = Release;
 		};
