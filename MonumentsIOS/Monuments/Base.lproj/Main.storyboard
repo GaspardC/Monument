@@ -141,16 +141,31 @@
                                 <color key="backgroundColor" red="0.9964441168771071" green="1" blue="0.99472462568019215" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="color" red="0.12060209933078114" green="0.26866693448730883" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqd-Th-40P">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="&lt;"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="8" y="8" width="30" height="30"/>
+                                </variation>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="1WO-im-BEZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="mqd-Th-40P" firstAttribute="top" secondItem="Qqr-g8-w8N" secondAttribute="bottom" constant="12" id="4wj-bg-7fI"/>
                             <constraint firstItem="9gC-f9-Bza" firstAttribute="centerY" secondItem="fqa-9b-x1w" secondAttribute="centerY" id="Czv-vH-11J"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="mqd-Th-40P" secondAttribute="leading" id="DNI-3w-aR6"/>
                             <constraint firstItem="9gC-f9-Bza" firstAttribute="centerX" secondItem="fqa-9b-x1w" secondAttribute="centerX" id="oi2-7g-Emc"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="9gC-f9-Bza"/>
+                                <exclude reference="mqd-Th-40P"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="4wj-bg-7fI"/>
+                                <exclude reference="DNI-3w-aR6"/>
                                 <exclude reference="Czv-vH-11J"/>
                                 <exclude reference="oi2-7g-Emc"/>
                             </mask>
@@ -158,8 +173,11 @@
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="9gC-f9-Bza"/>
+                                <include reference="mqd-Th-40P"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="4wj-bg-7fI"/>
+                                <include reference="DNI-3w-aR6"/>
                                 <include reference="Czv-vH-11J"/>
                                 <include reference="oi2-7g-Emc"/>
                             </mask>
@@ -335,6 +353,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8kp-Bp-Npk"/>
+        <segue reference="e6b-il-CoV"/>
     </inferredMetricsTieBreakers>
 </document>
