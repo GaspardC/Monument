@@ -40,12 +40,8 @@ class DisplayPOintsViewController: GLKViewController {
     var shader : BaseEffect!
     
     var vertices : [Vertex] = [
-        Vertex( 0.5, -0.5, -1.0, 1.0, 0.0, 0.0, 1.0),
-        Vertex( 0.5,  0.5, 0, 0.0, 1.0, 0.0, 1.0),
-        Vertex(-0.5,  0.5, 0, 0.0, 0.0, 1.0, 1.0),
-        Vertex(-0.5, -0.5, 0, 1.0, 1.0, 0.0, 1.0),
-        Vertex(-0.0, -0.0, -1.0, 0.0, 1.0, 0.0, 1.0)
-
+        Vertex( 2.0, -2.5, -1.0, 1.0, 0.0, 0.0, 1.0)
+        
     ]
     
     let indices : [GLubyte] = [
@@ -68,10 +64,10 @@ class DisplayPOintsViewController: GLKViewController {
         
         readFileFromServer(self)
         
-//        setupGLcontext()
-//        setupGLupdater()
-//        setupShader()
-//        setupVertexBuffer()
+        setupGLcontext()
+        setupGLupdater()
+        setupShader()
+        setupVertexBuffer()
     }
     
     func readFileFromServer(dpCtrl : DisplayPOintsViewController){
@@ -143,7 +139,7 @@ class DisplayPOintsViewController: GLKViewController {
         //(GLenum(GL_POINTS), GLsizei(indices.count), GLenum(GL_UNSIGNED_BYTE), nil)
         
         glDisableVertexAttribArray(VertexAttributes.Position.rawValue)
-        glClearColor(0.0, 0.0, 0.0, 0.0)
+        glClearColor(1.0, 1.0, 1.0, 1.0);
 
         
     }
