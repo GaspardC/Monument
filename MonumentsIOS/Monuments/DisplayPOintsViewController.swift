@@ -33,6 +33,14 @@ class DisplayPOintsViewController: GLKViewController {
     var glkView: GLKView!
     var glkUpdater: GLKUpdater!
     
+  
+    
+
+    
+    var slerpStart:GLKQuaternion! = GLKQuaternion()
+    var slerpEnd: GLKQuaternion! = GLKQuaternion()
+//    var effect:GLKBaseEffect!
+    
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
     var vertexBuffer : GLuint = 0
@@ -42,6 +50,7 @@ class DisplayPOintsViewController: GLKViewController {
     var vertices : [Vertex] = [
         Vertex( 2.0, -2.5, -1.0, 1.0, 0.0, 0.0, 1.0)
         
+
     ]
     
     let indices : [GLubyte] = [
@@ -49,31 +58,54 @@ class DisplayPOintsViewController: GLKViewController {
         2, 3, 0
     ]
     
+  
+    
+    
+
+    
     @IBAction func startSpinning() {
         loadingIndicator.startAnimating()
     }
     
     @IBAction func stopSpinning() {
+        
+       
         loadingIndicator.stopAnimating()
+
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpSwipeBack()
+//        self.effect = GLKBaseEffect()
 
-        
-        readFileFromServer(self)
-        
+        loadingIndicator.hidesWhenStopped = true
+//        setUpSwipeBack()
+
+
+        readFileFromServer()
         setupGLcontext()
         setupGLupdater()
         setupShader()
         setupVertexBuffer()
     }
     
+    
     func readFileFromServer(dpCtrl : DisplayPOintsViewController){
         
         
-        let url = NSURL(string:"http://dhlabsrv4.epfl.ch/wtm/get.php?f=venezia-gesuati&s=0")!
+        let url = NSURL(string:"http://dhlabsrv4.epfl.ch/wtm/get.php?f=venezia-gesuati&s=600000")!
 //        HttpDownloader.loadFileAsync(url, completion:{(path:String, error:NSError!) in
 //            print("pdf downloaded to: \(path)")
 //        })
@@ -113,9 +145,12 @@ class DisplayPOintsViewController: GLKViewController {
         glClearColor(1.0, 1.0, 1.0, 1.0);
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
         
+        
         // shader.begin() 
         shader.prepareToDraw()
+//        effect.prepareToDraw()
   
+        glDisable(GLenum(GL_CULL_FACE))
         glEnableVertexAttribArray(VertexAttributes.Position.rawValue)
         glVertexAttribPointer(
             VertexAttributes.Position.rawValue,
@@ -139,7 +174,11 @@ class DisplayPOintsViewController: GLKViewController {
         //(GLenum(GL_POINTS), GLsizei(indices.count), GLenum(GL_UNSIGNED_BYTE), nil)
         
         glDisableVertexAttribArray(VertexAttributes.Position.rawValue)
+<<<<<<< HEAD
         glClearColor(1.0, 1.0, 1.0, 1.0);
+=======
+        glClearColor(1.0, 1.0, 1.0, 1.0)
+>>>>>>> CleanVersion
 
         
     }
@@ -252,7 +291,7 @@ class Downloader {
         
         
         DCtrl.startSpinning()
-        
+
         let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
         let request = NSMutableURLRequest(URL: URL)
@@ -334,6 +373,9 @@ class Downloader {
             else {
                 // Failure
                 print("Faulure: %@", error!.localizedDescription);
+                DCtrl.stopSpinning()
+                DCtrl.performSegueWithIdentifier("segueDisplayToMain", sender: nil)
+
             }
         })
         task.resume()
