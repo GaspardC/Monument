@@ -33,13 +33,13 @@ class DisplayPOintsViewController: GLKViewController {
     var glkView: GLKView!
     var glkUpdater: GLKUpdater!
     
-  
     
-
+    
+    
     
     var slerpStart:GLKQuaternion! = GLKQuaternion()
     var slerpEnd: GLKQuaternion! = GLKQuaternion()
-//    var effect:GLKBaseEffect!
+    //    var effect:GLKBaseEffect!
     
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
@@ -48,9 +48,9 @@ class DisplayPOintsViewController: GLKViewController {
     var shader : BaseEffect!
     
     var vertices : [Vertex] = [
-        Vertex( 2.0, -2.5, -1.0, 1.0, 0.0, 0.0, 1.0)
+        Vertex( -2.5, -0.0, -1.0, 1.0, 0.0, 0.0, 0.0)
         
-
+        
     ]
     
     let indices : [GLubyte] = [
@@ -58,10 +58,10 @@ class DisplayPOintsViewController: GLKViewController {
         2, 3, 0
     ]
     
-  
     
     
-
+    
+    
     
     @IBAction func startSpinning() {
         loadingIndicator.startAnimating()
@@ -69,9 +69,9 @@ class DisplayPOintsViewController: GLKViewController {
     
     @IBAction func stopSpinning() {
         
-       
+        
         loadingIndicator.stopAnimating()
-
+        
     }
     
     
@@ -83,18 +83,19 @@ class DisplayPOintsViewController: GLKViewController {
     
     
     
-
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.effect = GLKBaseEffect()
-
+        //        self.effect = GLKBaseEffect()
+        
         loadingIndicator.hidesWhenStopped = true
-//        setUpSwipeBack()
-
-
-        readFileFromServer()
+        //        setUpSwipeBack()
+        
+        
+        readFileFromServer(self)
+        
         setupGLcontext()
         setupGLupdater()
         setupShader()
@@ -106,13 +107,13 @@ class DisplayPOintsViewController: GLKViewController {
         
         
         let url = NSURL(string:"http://dhlabsrv4.epfl.ch/wtm/get.php?f=venezia-gesuati&s=600000")!
-//        HttpDownloader.loadFileAsync(url, completion:{(path:String, error:NSError!) in
-//            print("pdf downloaded to: \(path)")
-//        })
+        //        HttpDownloader.loadFileAsync(url, completion:{(path:String, error:NSError!) in
+        //            print("pdf downloaded to: \(path)")
+        //        })
         Downloader.load(url, DCtrl: dpCtrl )
         
-       
-    
+        
+        
     }
     
     func setUpSwipeBack() -> (){
@@ -146,10 +147,10 @@ class DisplayPOintsViewController: GLKViewController {
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
         
         
-        // shader.begin() 
+        // shader.begin()
         shader.prepareToDraw()
-//        effect.prepareToDraw()
-  
+        //        effect.prepareToDraw()
+        
         glDisable(GLenum(GL_CULL_FACE))
         glEnableVertexAttribArray(VertexAttributes.Position.rawValue)
         glVertexAttribPointer(
@@ -169,17 +170,13 @@ class DisplayPOintsViewController: GLKViewController {
             GLsizei(sizeof(Vertex)), BUFFER_OFFSET(3 * sizeof(GLfloat))) // x, y, z | r, g, b, a :: offset is 3*sizeof(GLfloat)
         
         glBindBuffer(GLenum(GL_ARRAY_BUFFER), vertexBuffer)
-//        glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), indexBuffer)
+        //        glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), indexBuffer)
         glDrawArrays(GLenum(GL_POINTS), 0, GLsizei(vertices.count))
         //(GLenum(GL_POINTS), GLsizei(indices.count), GLenum(GL_UNSIGNED_BYTE), nil)
         
         glDisableVertexAttribArray(VertexAttributes.Position.rawValue)
-<<<<<<< HEAD
-        glClearColor(1.0, 1.0, 1.0, 1.0);
-=======
         glClearColor(1.0, 1.0, 1.0, 1.0)
->>>>>>> CleanVersion
-
+        
         
     }
     
@@ -213,9 +210,9 @@ extension DisplayPOintsViewController {
         let size =  sizeof(Vertex)
         glBufferData(GLenum(GL_ARRAY_BUFFER), count * size, vertices, GLenum(GL_STATIC_DRAW))
         
-//        glGenBuffers(GLsizei(1), &indexBuffer)
-//        glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), indexBuffer)
-//        glBufferData(GLenum(GL_ELEMENT_ARRAY_BUFFER), indices.count * sizeof(GLubyte), indices, GLenum(GL_STATIC_DRAW))
+        //        glGenBuffers(GLsizei(1), &indexBuffer)
+        //        glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), indexBuffer)
+        //        glBufferData(GLenum(GL_ELEMENT_ARRAY_BUFFER), indices.count * sizeof(GLubyte), indices, GLenum(GL_STATIC_DRAW))
     }
     
     func BUFFER_OFFSET(n: Int) -> UnsafePointer<Void> {
@@ -291,7 +288,7 @@ class Downloader {
         
         
         DCtrl.startSpinning()
-
+        
         let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
         let request = NSMutableURLRequest(URL: URL)
@@ -311,46 +308,46 @@ class Downloader {
                 // data
                 
                 var count = -1 + (data?.length)!/(3*sizeof(Float) + 4*sizeof(UInt8))
-//                count =  100
+                //                count =  100
                 var i = -1
                 for _ in  1...count{
-                i++
-                if(i%16 == 0){
-                var x : Float = 0
-                var y : Float = 0
-                var z : Float = 0
-                
-
-                data!.getBytes(&x, range: (NSMakeRange(i, sizeofValue(y))))
-                data!.getBytes(&y, range: (NSMakeRange(4+i, sizeofValue(y))))
-                data!.getBytes(&z, range: (NSMakeRange(8+i, sizeofValue(y))))
-//                
-//                print(x)
-//                print(y)
-//                print(z)
-
-                var r : UInt8 = 0
-                data!.getBytes(&r, range: (NSMakeRange(12+i, sizeofValue(y))))
-//                    print(r)
-                var g : UInt8 = 0
-                data!.getBytes(&g, range: (NSMakeRange(13+i, sizeofValue(y))))
-//                    print(g)
-                var b : UInt8 = 0
-                data!.getBytes(&b, range: (NSMakeRange(14+i, sizeofValue(y))))
-//                    print(b)
-                var a : UInt8 = 0
-                data!.getBytes(&a, range: (NSMakeRange(15+i, sizeofValue(y))))
-                a = max(a,0)
-                let vert : Vertex = Vertex(x,y,z,(Float (r))/255.0,(Float(g))/255.0,(Float(b))/255.0,(Float (a))/255.0)
-//                print("vert \(i) \(vert)")
-                DCtrl.vertices.append(vert)
-                }
-
+                    i++
+                    if(i%16 == 0){
+                        var x : Float = 0
+                        var y : Float = 0
+                        var z : Float = 0
+                        
+                        
+                        data!.getBytes(&x, range: (NSMakeRange(i, sizeofValue(y))))
+                        data!.getBytes(&y, range: (NSMakeRange(4+i, sizeofValue(y))))
+                        data!.getBytes(&z, range: (NSMakeRange(8+i, sizeofValue(y))))
+                        //
+                        //                print(x)
+                        //                print(y)
+                        //                print(z)
+                        
+                        var r : UInt8 = 0
+                        data!.getBytes(&r, range: (NSMakeRange(12+i, sizeofValue(y))))
+                        //                    print(r)
+                        var g : UInt8 = 0
+                        data!.getBytes(&g, range: (NSMakeRange(13+i, sizeofValue(y))))
+                        //                    print(g)
+                        var b : UInt8 = 0
+                        data!.getBytes(&b, range: (NSMakeRange(14+i, sizeofValue(y))))
+                        //                    print(b)
+                        var a : UInt8 = 0
+                        data!.getBytes(&a, range: (NSMakeRange(15+i, sizeofValue(y))))
+                        a = max(a,0)
+                        let vert : Vertex = Vertex(x,y,z,(Float (r))/255.0,(Float(g))/255.0,(Float(b))/255.0,(Float (a))/255.0)
+                        //                print("vert \(i) \(vert)")
+                        DCtrl.vertices.append(vert)
+                    }
+                    
                 }
                 
                 print("done")
                 DCtrl.stopSpinning()
-
+                
                 
                 DCtrl.setupGLcontext()
                 DCtrl.setupGLupdater()
@@ -358,24 +355,24 @@ class Downloader {
                 DCtrl.setupVertexBuffer()
                 
                 // the number of elements:
-//                let count = data!.length / sizeof(UInt32)
-//
-//                // create array of appropriate length:
-//                var array = [UInt32](count: count, repeatedValue: 0)
-//                
-//                // copy bytes into array
-//                data!.getBytes(&array, length:count * sizeof(UInt32))
-//                
-//                print(array)
-//                // Output: [32, 4, 123, 4, 5, 2]
-//                
+                //                let count = data!.length / sizeof(UInt32)
+                //
+                //                // create array of appropriate length:
+                //                var array = [UInt32](count: count, repeatedValue: 0)
+                //                
+                //                // copy bytes into array
+                //                data!.getBytes(&array, length:count * sizeof(UInt32))
+                //                
+                //                print(array)
+                //                // Output: [32, 4, 123, 4, 5, 2]
+                //                
             }
             else {
                 // Failure
                 print("Faulure: %@", error!.localizedDescription);
                 DCtrl.stopSpinning()
                 DCtrl.performSegueWithIdentifier("segueDisplayToMain", sender: nil)
-
+                
             }
         })
         task.resume()
