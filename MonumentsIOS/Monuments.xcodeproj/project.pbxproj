@@ -12,7 +12,6 @@
 		C92CFF251D323C13007AD2DF /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92CFF241D323C13007AD2DF /* GLKit.framework */; };
 		C92CFF271D323C18007AD2DF /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92CFF261D323C18007AD2DF /* OpenGLES.framework */; };
 		C92CFF2B1D323C60007AD2DF /* BaseEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92CFF291D323C60007AD2DF /* BaseEffect.swift */; };
-		C92CFF2C1D323C60007AD2DF /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92CFF2A1D323C60007AD2DF /* Vertex.swift */; };
 		C92CFF2F1D324008007AD2DF /* SimpleFragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = C92CFF2D1D324008007AD2DF /* SimpleFragmentShader.glsl */; };
 		C92CFF301D324008007AD2DF /* SimpleVertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = C92CFF2E1D324008007AD2DF /* SimpleVertexShader.glsl */; };
 		C92CFF351D33F686007AD2DF /* Ninja.obj in Resources */ = {isa = PBXBuildFile; fileRef = C92CFF341D33F686007AD2DF /* Ninja.obj */; };
@@ -33,9 +32,10 @@
 		C943CB241D14B00C00D94493 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C943CB221D14B00C00D94493 /* LaunchScreen.storyboard */; };
 		C943CB2F1D14B00C00D94493 /* MonumentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CB2E1D14B00C00D94493 /* MonumentsTests.swift */; };
 		C943CB3A1D14B00C00D94493 /* MonumentsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CB391D14B00C00D94493 /* MonumentsUITests.swift */; };
-		C9467B8F1D46173A00A70176 /* GLKMatrix+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9467B8E1D46173A00A70176 /* GLKMatrix+Array.swift */; };
-		C9467B911D462B4000A70176 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9467B901D462B4000A70176 /* Model.swift */; };
-		C9467B931D462B4800A70176 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9467B921D462B4800A70176 /* Square.swift */; };
+		C9467B951D46470600A70176 /* GLKMatrix+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9467B941D46470600A70176 /* GLKMatrix+Array.swift */; };
+		C9467B971D46477200A70176 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9467B961D46477200A70176 /* Model.swift */; };
+		C9467B991D46478A00A70176 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9467B981D46478A00A70176 /* Square.swift */; };
+		C9467B9B1D4647B200A70176 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9467B9A1D4647B200A70176 /* Vertex.swift */; };
 		C980D05E1D2EB952002CFF1A /* LoadObjViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C980D05D1D2EB952002CFF1A /* LoadObjViewController.swift */; };
 		C99237551D28382B000208DB /* UploadPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99237541D28382B000208DB /* UploadPhotoController.swift */; };
 		C99237561D28382B000208DB /* UploadPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99237541D28382B000208DB /* UploadPhotoController.swift */; };
@@ -65,7 +65,6 @@
 		C92CFF241D323C13007AD2DF /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		C92CFF261D323C18007AD2DF /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		C92CFF291D323C60007AD2DF /* BaseEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseEffect.swift; path = "../../../../LearningOpenGLES2-master/03.ColoredSquare/ColoredSquare/BaseEffect.swift"; sourceTree = "<group>"; };
-		C92CFF2A1D323C60007AD2DF /* Vertex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vertex.swift; path = "../../../../LearningOpenGLES2-master/03.ColoredSquare/ColoredSquare/Vertex.swift"; sourceTree = "<group>"; };
 		C92CFF2D1D324008007AD2DF /* SimpleFragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleFragmentShader.glsl; path = "../../../../LearningOpenGLES2-master/03.ColoredSquare/ColoredSquare/SimpleFragmentShader.glsl"; sourceTree = "<group>"; };
 		C92CFF2E1D324008007AD2DF /* SimpleVertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleVertexShader.glsl; path = "../../../../LearningOpenGLES2-master/03.ColoredSquare/ColoredSquare/SimpleVertexShader.glsl"; sourceTree = "<group>"; };
 		C92CFF341D33F686007AD2DF /* Ninja.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Ninja.obj; path = "../../../../OpenGLES-master/Tutorial09/Tutorial09/Model/Ninja.obj"; sourceTree = "<group>"; };
@@ -101,9 +100,10 @@
 		C943CB351D14B00C00D94493 /* MonumentsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonumentsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C943CB391D14B00C00D94493 /* MonumentsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonumentsUITests.swift; sourceTree = "<group>"; };
 		C943CB3B1D14B00C00D94493 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9467B8E1D46173A00A70176 /* GLKMatrix+Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GLKMatrix+Array.swift"; path = "../../../../LearningOpenGLES2-master 2/06-4.ProjectionTransformation/ProjectionTransformation/GLKMatrix+Array.swift"; sourceTree = "<group>"; };
-		C9467B901D462B4000A70176 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Model.swift; path = "../../../../LearningOpenGLES2-master 2/06-4.ProjectionTransformation/ProjectionTransformation/Model.swift"; sourceTree = "<group>"; };
-		C9467B921D462B4800A70176 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square.swift; path = "../../../../LearningOpenGLES2-master 2/06-4.ProjectionTransformation/ProjectionTransformation/Square.swift"; sourceTree = "<group>"; };
+		C9467B941D46470600A70176 /* GLKMatrix+Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GLKMatrix+Array.swift"; sourceTree = "<group>"; };
+		C9467B961D46477200A70176 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		C9467B981D46478A00A70176 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
+		C9467B9A1D4647B200A70176 /* Vertex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
 		C980D05D1D2EB952002CFF1A /* LoadObjViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadObjViewController.swift; sourceTree = "<group>"; };
 		C99237541D28382B000208DB /* UploadPhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPhotoController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -248,14 +248,14 @@
 				C92CFF561D33FA2D007AD2DF /* LoaderOBJ */,
 				C92CFF311D324010007AD2DF /* shader */,
 				C92CFF291D323C60007AD2DF /* BaseEffect.swift */,
-				C92CFF2A1D323C60007AD2DF /* Vertex.swift */,
 				C943CB191D14B00C00D94493 /* AppDelegate.swift */,
 				C943CB1B1D14B00C00D94493 /* ViewController.swift */,
-				C9467B901D462B4000A70176 /* Model.swift */,
 				C99237541D28382B000208DB /* UploadPhotoController.swift */,
-				C9467B921D462B4800A70176 /* Square.swift */,
+				C9467B961D46477200A70176 /* Model.swift */,
 				C93114601D2D03320062F837 /* PhotoEntity.swift */,
-				C9467B8E1D46173A00A70176 /* GLKMatrix+Array.swift */,
+				C9467B981D46478A00A70176 /* Square.swift */,
+				C9467B9A1D4647B200A70176 /* Vertex.swift */,
+				C9467B941D46470600A70176 /* GLKMatrix+Array.swift */,
 				C980D05D1D2EB952002CFF1A /* LoadObjViewController.swift */,
 				C92CFF201D323B28007AD2DF /* DisplayPOintsViewController.swift */,
 				C943CB1D1D14B00C00D94493 /* Main.storyboard */,
@@ -422,20 +422,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9467B911D462B4000A70176 /* Model.swift in Sources */,
 				C99237551D28382B000208DB /* UploadPhotoController.swift in Sources */,
-				C9467B8F1D46173A00A70176 /* GLKMatrix+Array.swift in Sources */,
 				C980D05E1D2EB952002CFF1A /* LoadObjViewController.swift in Sources */,
 				C92CFF481D33F74C007AD2DF /* GLESMath.c in Sources */,
 				C92CFF211D323B28007AD2DF /* DisplayPOintsViewController.swift in Sources */,
 				C92CFF491D33F74C007AD2DF /* GLESUtils.m in Sources */,
+				C9467B9B1D4647B200A70176 /* Vertex.swift in Sources */,
 				C92CFF3D1D33F6AE007AD2DF /* ModelSurface.cpp in Sources */,
-				C9467B931D462B4800A70176 /* Square.swift in Sources */,
+				C9467B951D46470600A70176 /* GLKMatrix+Array.swift in Sources */,
+				C9467B971D46477200A70176 /* Model.swift in Sources */,
+				C9467B991D46478A00A70176 /* Square.swift in Sources */,
 				C92CFF581D33FAAE007AD2DF /* OpenGLView.mm in Sources */,
 				C92CFF541D33F82A007AD2DF /* ViewController.m in Sources */,
 				C943CB1C1D14B00C00D94493 /* ViewController.swift in Sources */,
 				C943CB1A1D14B00C00D94493 /* AppDelegate.swift in Sources */,
-				C92CFF2C1D323C60007AD2DF /* Vertex.swift in Sources */,
 				C93114611D2D03320062F837 /* PhotoEntity.swift in Sources */,
 				C92CFF2B1D323C60007AD2DF /* BaseEffect.swift in Sources */,
 			);

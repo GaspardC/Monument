@@ -49,48 +49,32 @@ class DisplayPOintsViewController: GLKViewController {
     var shader : BaseEffect!
     var square : Square!
 
-    
+    var loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     
     
     var slerpStart:GLKQuaternion! = GLKQuaternion()
     var slerpEnd: GLKQuaternion! = GLKQuaternion()
 //    var effect:GLKBaseEffect!
     
-    @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
     var vertexBuffer : GLuint = 0
     var indexBuffer: GLuint = 0
     
     var vertices : [Vertex] = [
-        Vertex( 0.5, -0.5, 0, 1.0, 0.0, 0.0, 1.0),
-        Vertex( 0.5,  0.5, 0, 0.0, 1.0, 0.0, 1.0),
-        Vertex(-0.5,  0.5, 0, 0.0, 0.0, 1.0, 1.0),
-        Vertex(-0.5, -0.5, 0, 1.0, 1.0, 0.0, 1.0),
-        Vertex( 0.2, -0.2, 1, 1.0, 0.0, 0.0, 1.0),
-        Vertex( 0.2,  0.2, 1, 0.0, 1.0, 0.0, 1.0),
-        Vertex(-0.2,  0.2, 1, 0.0, 0.0, 1.0, 1.0),
-        Vertex(-0.2, -0.2, 1, 1.0, 1.0, 0.0, 1.0),
+        Vertex( -0.8, 0.8, 0, 1.0, 1.0, 1.0, 0.0)
 
     ]
     
-    let indices : [GLubyte] = [
-        0, 1, 2,
-        2, 3, 0
-    ]
-    
-  
-    
-    
-
     
     @IBAction func startSpinning() {
         loadingIndicator.startAnimating()
+        loadingIndicator.hidden = false
     }
     
     @IBAction func stopSpinning() {
-        
        
         loadingIndicator.stopAnimating()
+        loadingIndicator.hidden = true
 
     }
     
@@ -228,20 +212,23 @@ class DisplayPOintsViewController: GLKViewController {
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-//        self.effect = GLKBaseEffect()
 
-//        rotMatrix = GLKMatrix4Identity
+        
+        
+            loadingIndicator.center = view.center
+            loadingIndicator.startAnimating()
+            view.addSubview(loadingIndicator)
+            
+            
+            
         loadingIndicator.hidesWhenStopped = true
         setUpSwipeBack()
 
 
         readFileFromServer(self)
 
-//        setupGLcontext()
-//        setupGLupdater()
-//        setupShader()
-//        setupVertexBuffer()
         setupGLcontext()
         setupGLupdater()
         setupScene()
@@ -251,7 +238,7 @@ class DisplayPOintsViewController: GLKViewController {
     func readFileFromServer(dpCtrl : DisplayPOintsViewController){
         
         
-        let url = NSURL(string:"http://dhlabsrv4.epfl.ch/wtm/get.php?f=venezia-gesuati&s=7000000")!
+        let url = NSURL(string:"http://dhlabsrv4.epfl.ch/wtm/get.php?f=venezia-gesuati&s=6000000")!
 //        HttpDownloader.loadFileAsync(url, completion:{(path:String, error:NSError!) in
 //            print("pdf downloaded to: \(path)")
 //        })
@@ -332,7 +319,7 @@ extension DisplayPOintsViewController {
             150)
         
         self.square = Square(shader: self.shader, vertex: vertices)
-        self.square.position = GLKVector3(v: (0.5, -0.5, 0))
+        self.square.position = GLKVector3(v: (0.0, -0.0, 0))
         
     }
     
@@ -453,10 +440,7 @@ class Downloader {
                 data!.getBytes(&x, range: (NSMakeRange(i, sizeofValue(y))))
                 data!.getBytes(&y, range: (NSMakeRange(4+i, sizeofValue(y))))
                 data!.getBytes(&z, range: (NSMakeRange(8+i, sizeofValue(y))))
-//                
-//                print(x)
-//                print(y)
-//                print(z)
+
 
                 var r : UInt8 = 0
                 data!.getBytes(&r, range: (NSMakeRange(12+i, sizeofValue(y))))
