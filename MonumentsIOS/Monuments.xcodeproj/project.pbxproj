@@ -33,6 +33,9 @@
 		C943CB241D14B00C00D94493 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C943CB221D14B00C00D94493 /* LaunchScreen.storyboard */; };
 		C943CB2F1D14B00C00D94493 /* MonumentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CB2E1D14B00C00D94493 /* MonumentsTests.swift */; };
 		C943CB3A1D14B00C00D94493 /* MonumentsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CB391D14B00C00D94493 /* MonumentsUITests.swift */; };
+		C9467B8F1D46173A00A70176 /* GLKMatrix+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9467B8E1D46173A00A70176 /* GLKMatrix+Array.swift */; };
+		C9467B911D462B4000A70176 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9467B901D462B4000A70176 /* Model.swift */; };
+		C9467B931D462B4800A70176 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9467B921D462B4800A70176 /* Square.swift */; };
 		C980D05E1D2EB952002CFF1A /* LoadObjViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C980D05D1D2EB952002CFF1A /* LoadObjViewController.swift */; };
 		C99237551D28382B000208DB /* UploadPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99237541D28382B000208DB /* UploadPhotoController.swift */; };
 		C99237561D28382B000208DB /* UploadPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99237541D28382B000208DB /* UploadPhotoController.swift */; };
@@ -98,6 +101,9 @@
 		C943CB351D14B00C00D94493 /* MonumentsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonumentsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C943CB391D14B00C00D94493 /* MonumentsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonumentsUITests.swift; sourceTree = "<group>"; };
 		C943CB3B1D14B00C00D94493 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9467B8E1D46173A00A70176 /* GLKMatrix+Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GLKMatrix+Array.swift"; path = "../../../../LearningOpenGLES2-master 2/06-4.ProjectionTransformation/ProjectionTransformation/GLKMatrix+Array.swift"; sourceTree = "<group>"; };
+		C9467B901D462B4000A70176 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Model.swift; path = "../../../../LearningOpenGLES2-master 2/06-4.ProjectionTransformation/ProjectionTransformation/Model.swift"; sourceTree = "<group>"; };
+		C9467B921D462B4800A70176 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square.swift; path = "../../../../LearningOpenGLES2-master 2/06-4.ProjectionTransformation/ProjectionTransformation/Square.swift"; sourceTree = "<group>"; };
 		C980D05D1D2EB952002CFF1A /* LoadObjViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadObjViewController.swift; sourceTree = "<group>"; };
 		C99237541D28382B000208DB /* UploadPhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPhotoController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -245,8 +251,11 @@
 				C92CFF2A1D323C60007AD2DF /* Vertex.swift */,
 				C943CB191D14B00C00D94493 /* AppDelegate.swift */,
 				C943CB1B1D14B00C00D94493 /* ViewController.swift */,
+				C9467B901D462B4000A70176 /* Model.swift */,
 				C99237541D28382B000208DB /* UploadPhotoController.swift */,
+				C9467B921D462B4800A70176 /* Square.swift */,
 				C93114601D2D03320062F837 /* PhotoEntity.swift */,
+				C9467B8E1D46173A00A70176 /* GLKMatrix+Array.swift */,
 				C980D05D1D2EB952002CFF1A /* LoadObjViewController.swift */,
 				C92CFF201D323B28007AD2DF /* DisplayPOintsViewController.swift */,
 				C943CB1D1D14B00C00D94493 /* Main.storyboard */,
@@ -413,12 +422,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9467B911D462B4000A70176 /* Model.swift in Sources */,
 				C99237551D28382B000208DB /* UploadPhotoController.swift in Sources */,
+				C9467B8F1D46173A00A70176 /* GLKMatrix+Array.swift in Sources */,
 				C980D05E1D2EB952002CFF1A /* LoadObjViewController.swift in Sources */,
 				C92CFF481D33F74C007AD2DF /* GLESMath.c in Sources */,
 				C92CFF211D323B28007AD2DF /* DisplayPOintsViewController.swift in Sources */,
 				C92CFF491D33F74C007AD2DF /* GLESUtils.m in Sources */,
 				C92CFF3D1D33F6AE007AD2DF /* ModelSurface.cpp in Sources */,
+				C9467B931D462B4800A70176 /* Square.swift in Sources */,
 				C92CFF581D33FAAE007AD2DF /* OpenGLView.mm in Sources */,
 				C92CFF541D33F82A007AD2DF /* ViewController.m in Sources */,
 				C943CB1C1D14B00C00D94493 /* ViewController.swift in Sources */,

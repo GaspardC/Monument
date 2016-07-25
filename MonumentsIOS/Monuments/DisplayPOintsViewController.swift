@@ -46,20 +46,30 @@ class DisplayPOintsViewController: GLKViewController {
     var slerpMax:Float = 1.0
     
 
+    var shader : BaseEffect!
+    var square : Square!
+
+    
+    
     
     var slerpStart:GLKQuaternion! = GLKQuaternion()
     var slerpEnd: GLKQuaternion! = GLKQuaternion()
-    var effect:GLKBaseEffect!
+//    var effect:GLKBaseEffect!
     
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
     var vertexBuffer : GLuint = 0
     var indexBuffer: GLuint = 0
-    var shader : BaseEffect!
     
     var vertices : [Vertex] = [
-        Vertex( -2.5, -0.0, -1.0, 1.0, 0.0, 0.0, 0.0)
-
+        Vertex( 0.5, -0.5, 0, 1.0, 0.0, 0.0, 1.0),
+        Vertex( 0.5,  0.5, 0, 0.0, 1.0, 0.0, 1.0),
+        Vertex(-0.5,  0.5, 0, 0.0, 0.0, 1.0, 1.0),
+        Vertex(-0.5, -0.5, 0, 1.0, 1.0, 0.0, 1.0),
+        Vertex( 0.2, -0.2, 1, 1.0, 0.0, 0.0, 1.0),
+        Vertex( 0.2,  0.2, 1, 0.0, 1.0, 0.0, 1.0),
+        Vertex(-0.2,  0.2, 1, 0.0, 0.0, 1.0, 1.0),
+        Vertex(-0.2, -0.2, 1, 1.0, 1.0, 0.0, 1.0),
 
     ]
     
@@ -88,37 +98,37 @@ class DisplayPOintsViewController: GLKViewController {
     
     
     func update() {
-        if (_increasing != nil) {
-            _curRed += 1.0 * Float(self.timeSinceLastUpdate)
-        }
-        else {
-            _curRed -= 1.0 * Float(self.timeSinceLastUpdate)
-        }
-        if _curRed >= 1.0 {
-            _curRed = 1.0
-            _increasing = false
-        }
-        if _curRed <= 0.0 {
-            _curRed = 0.0
-            _increasing = true
-        }
-        let aspect: Float = fabsf(Float(self.view.bounds.size.width / self.view.bounds.size.height))
-        let projectionMatrix: GLKMatrix4 = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0), aspect, 4.0, 10.0)
-        self.effect.transform.projectionMatrix = projectionMatrix
-        if slerping {
-            self.slerpCur += Float(self.timeSinceLastUpdate)
-            var slerpAmt: Float = slerpCur / slerpMax
-            if slerpAmt > 1.0 {
-                slerpAmt = 1.0
-                self.slerping = false
-            }
-            self.quat = GLKQuaternionSlerp(slerpStart, slerpEnd, slerpAmt)
-        }
-        var modelViewMatrix: GLKMatrix4 = GLKMatrix4MakeTranslation(0.0, 0.0, -6.0)
-        //modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, _rotMatrix);
-        let rotation: GLKMatrix4 = GLKMatrix4MakeWithQuaternion(quat)
-        modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, rotation)
-        self.effect.transform.modelviewMatrix = modelViewMatrix
+        
+//        let aspect: Float = fabsf(Float(self.view.bounds.size.width / self.view.bounds.size.height))
+//        let projectionMatrix: GLKMatrix4 = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(0), aspect, 1.0, 150.0)
+//        
+//        
+////        self.effect.transform.projectionMatrix = projectionMatrix
+//          self.shader.projectionMatrix = projectionMatrix
+////          self.shader.projectionMatrix =  GLKMatrix4Identity
+//
+//
+////        if slerping {
+////            self.slerpCur += Float(self.timeSinceLastUpdate)
+////            var slerpAmt: Float = slerpCur / slerpMax
+////            if slerpAmt > 1.0 {
+////                slerpAmt = 1.0
+////                self.slerping = false
+////            }
+////            self.quat = GLKQuaternionSlerp(slerpStart, slerpEnd, slerpAmt)
+////        }
+//        var modelViewMatrix: GLKMatrix4 = GLKMatrix4MakeTranslation(0.0, 0.0, -6.0)
+//        //modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, _rotMatrix);
+//        //let rotation: GLKMatrix4 = GLKMatrix4MakeWithQuaternion(quat)
+//        //modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, rotation)
+//        
+//       
+//        modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, self.rotMatrix);
+////        self.effect.transform.modelviewMatrix = modelViewMatrix
+//        self.shader.modelViewMatrix = modelViewMatrix
+//        self.shader.modelViewMatrix = GLKMatrix4Identity
+
+
     }
     
     func projectOntoSurface(touchPoint: GLKVector3) -> GLKVector3 {
@@ -157,30 +167,53 @@ class DisplayPOintsViewController: GLKViewController {
         self.quat = GLKQuaternionMultiply(Q_rot, quatStart)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        var touch: UITouch = touches.first!
-        var location: CGPoint = touch.locationInView(self.view!)
-        self.anchor_position = GLKVector3Make(Float(location.x), Float(location.y), 0)
-        self.anchor_position = self.projectOntoSurface(anchor_position)
-        self.current_position = anchor_position
-        self.quatStart = quat
-    }
+//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        var touch: UITouch = touches.first!
+//        var location: CGPoint = touch.locationInView(self.view!)
+//        self.anchor_position = GLKVector3Make(Float(location.x), Float(location.y), 0)
+//        self.anchor_position = self.projectOntoSurface(anchor_position)
+//        self.current_position = anchor_position
+//        self.quatStart = quat
+//    }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
         var touch: UITouch = touches.first!
-        var location: CGPoint = touch.locationInView(self.view!)
-        var lastLoc: CGPoint = touch.previousLocationInView(self.view!)
-        var diff: CGPoint = CGPointMake(lastLoc.x - location.x, lastLoc.y - location.y)
-        var rotX: Float = -1 * GLKMathDegreesToRadians(Float(diff.y / 2.0))
-        var rotY: Float = -1 * GLKMathDegreesToRadians(Float(diff.x / 2.0))
-        var isInvertible: Bool = true
-        let xAxis: GLKVector3 = GLKMatrix4MultiplyVector3(GLKMatrix4Invert(rotMatrix, &isInvertible), GLKVector3Make(1, 0, 0))
-        self.rotMatrix = GLKMatrix4Rotate(rotMatrix, rotX, xAxis.x, xAxis.y, xAxis.z)
-        var yAxis: GLKVector3 = GLKMatrix4MultiplyVector3(GLKMatrix4Invert(rotMatrix, &isInvertible), GLKVector3Make(0, 1, 0))
-        self.rotMatrix = GLKMatrix4Rotate(rotMatrix, rotY, yAxis.x, yAxis.y, yAxis.z)
-        self.current_position = GLKVector3Make(Float(location.x), Float(location.y), 0)
-        self.current_position = self.projectOntoSurface(current_position)
-        self.computeIncremental()
+                var location: CGPoint = touch.locationInView(self.view!)
+                var lastLoc: CGPoint = touch.previousLocationInView(self.view!)
+                var diff: CGPoint = CGPointMake(lastLoc.x - location.x, lastLoc.y - location.y)
+                var rotX: Float = -1 * GLKMathDegreesToRadians(Float(diff.y / 2.0))
+                var rotY: Float = -1 * GLKMathDegreesToRadians(Float(diff.x / 2.0))
+
+        
+        
+        square.rotationX = Float(square.rotationX) + Float(diff.x / 20)
+        square.rotationY = Float(square.rotationY) + Float(diff.y / 20)
+
+
+        
+        
+//        var xAxis :GLKVector3  = GLKVector3Make(1, 0, 0);
+//        self.rotMatrix = GLKMatrix4Rotate(self.rotMatrix, rotX, xAxis.x, xAxis.y, xAxis.z);
+//        var yAxis : GLKVector3 = GLKVector3Make(0, 1, 0);
+//        self.rotMatrix = GLKMatrix4Rotate(self.rotMatrix, rotY, yAxis.x, yAxis.y, yAxis.z);
+//
+//    
+        
+//        var touch: UITouch = touches.first!
+//        var location: CGPoint = touch.locationInView(self.view!)
+//        var lastLoc: CGPoint = touch.previousLocationInView(self.view!)
+//        var diff: CGPoint = CGPointMake(lastLoc.x - location.x, lastLoc.y - location.y)
+//        var rotX: Float = -1 * GLKMathDegreesToRadians(Float(diff.y / 2.0))
+//        var rotY: Float = -1 * GLKMathDegreesToRadians(Float(diff.x / 2.0))
+//        var isInvertible: Bool = true
+//        let xAxis: GLKVector3 = GLKMatrix4MultiplyVector3(GLKMatrix4Invert(rotMatrix, &isInvertible), GLKVector3Make(1, 0, 0))
+//        self.rotMatrix = GLKMatrix4Rotate(rotMatrix, rotX, xAxis.x, xAxis.y, xAxis.z)
+//        var yAxis: GLKVector3 = GLKMatrix4MultiplyVector3(GLKMatrix4Invert(rotMatrix, &isInvertible), GLKVector3Make(0, 1, 0))
+//        self.rotMatrix = GLKMatrix4Rotate(rotMatrix, rotY, yAxis.x, yAxis.y, yAxis.z)
+//        self.current_position = GLKVector3Make(Float(location.x), Float(location.y), 0)
+//        self.current_position = self.projectOntoSurface(current_position)
+//        self.computeIncremental()
     }
     
     func doubleTap(tap: UITapGestureRecognizer) {
@@ -196,25 +229,29 @@ class DisplayPOintsViewController: GLKViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.effect = GLKBaseEffect()
+//        self.effect = GLKBaseEffect()
 
+//        rotMatrix = GLKMatrix4Identity
         loadingIndicator.hidesWhenStopped = true
         setUpSwipeBack()
 
 
         readFileFromServer(self)
 
+//        setupGLcontext()
+//        setupGLupdater()
+//        setupShader()
+//        setupVertexBuffer()
         setupGLcontext()
         setupGLupdater()
-        setupShader()
-        setupVertexBuffer()
+        setupScene()
     }
     
     
     func readFileFromServer(dpCtrl : DisplayPOintsViewController){
         
         
-        let url = NSURL(string:"http://dhlabsrv4.epfl.ch/wtm/get.php?f=venezia-gesuati&s=600000")!
+        let url = NSURL(string:"http://dhlabsrv4.epfl.ch/wtm/get.php?f=venezia-gesuati&s=7000000")!
 //        HttpDownloader.loadFileAsync(url, completion:{(path:String, error:NSError!) in
 //            print("pdf downloaded to: \(path)")
 //        })
@@ -251,39 +288,13 @@ class DisplayPOintsViewController: GLKViewController {
     
     
     override func glkView(view: GLKView, drawInRect rect: CGRect) {
+        
         glClearColor(1.0, 1.0, 1.0, 1.0);
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
         
-        
-        // shader.begin() 
-        shader.prepareToDraw()
-        effect.prepareToDraw()
-  
-        glDisable(GLenum(GL_CULL_FACE))
-        glEnableVertexAttribArray(VertexAttributes.Position.rawValue)
-        glVertexAttribPointer(
-            VertexAttributes.Position.rawValue,
-            3,
-            GLenum(GL_FLOAT),
-            GLboolean(GL_FALSE),
-            GLsizei(sizeof(Vertex)), BUFFER_OFFSET(0))
-        
-        
-        glEnableVertexAttribArray(VertexAttributes.Color.rawValue)
-        glVertexAttribPointer(
-            VertexAttributes.Color.rawValue,
-            4,
-            GLenum(GL_FLOAT),
-            GLboolean(GL_FALSE),
-            GLsizei(sizeof(Vertex)), BUFFER_OFFSET(3 * sizeof(GLfloat))) // x, y, z | r, g, b, a :: offset is 3*sizeof(GLfloat)
-        
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), vertexBuffer)
-//        glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), indexBuffer)
-        glDrawArrays(GLenum(GL_POINTS), 0, GLsizei(vertices.count))
-        //(GLenum(GL_POINTS), GLsizei(indices.count), GLenum(GL_UNSIGNED_BYTE), nil)
-        
-        glDisableVertexAttribArray(VertexAttributes.Position.rawValue)
-        glClearColor(1.0, 1.0, 1.0, 1.0)
+        let viewMatrix : GLKMatrix4 = GLKMatrix4MakeTranslation(0, -1, -5)
+        self.square.renderWithParentMoelViewMatrix(viewMatrix)
+
 
         
     }
@@ -311,6 +322,21 @@ extension DisplayPOintsViewController {
         self.shader = BaseEffect(vertexShader: "SimpleVertexShader.glsl", fragmentShader: "SimpleFragmentShader.glsl")
     }
     
+    func setupScene() {
+        self.shader = BaseEffect(vertexShader: "SimpleVertexShader.glsl", fragmentShader: "SimpleFragmentShader.glsl")
+        
+        self.shader.projectionMatrix = GLKMatrix4MakePerspective(
+            GLKMathDegreesToRadians(85.0),
+            GLfloat(self.view.bounds.size.width / self.view.bounds.size.height),
+            1,
+            150)
+        
+        self.square = Square(shader: self.shader, vertex: vertices)
+        self.square.position = GLKVector3(v: (0.5, -0.5, 0))
+        
+    }
+    
+    
     func setupVertexBuffer() {
         glGenBuffers(GLsizei(1), &vertexBuffer)
         glBindBuffer(GLenum(GL_ARRAY_BUFFER), vertexBuffer)
@@ -318,9 +344,6 @@ extension DisplayPOintsViewController {
         let size =  sizeof(Vertex)
         glBufferData(GLenum(GL_ARRAY_BUFFER), count * size, vertices, GLenum(GL_STATIC_DRAW))
         
-//        glGenBuffers(GLsizei(1), &indexBuffer)
-//        glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), indexBuffer)
-//        glBufferData(GLenum(GL_ELEMENT_ARRAY_BUFFER), indices.count * sizeof(GLubyte), indices, GLenum(GL_STATIC_DRAW))
     }
     
     func BUFFER_OFFSET(n: Int) -> UnsafePointer<Void> {
@@ -410,6 +433,7 @@ class Downloader {
                 
                 
                 //                print("data :  \(data)" )
+                
                 DCtrl.resetVertices()
                 
                 // This is your file-variable:
@@ -456,24 +480,12 @@ class Downloader {
                 print("done")
                 DCtrl.stopSpinning()
 
-                
                 DCtrl.setupGLcontext()
                 DCtrl.setupGLupdater()
-                DCtrl.setupShader()
-                DCtrl.setupVertexBuffer()
+                DCtrl.setupScene()
+              
                 
-                // the number of elements:
-//                let count = data!.length / sizeof(UInt32)
-//
-//                // create array of appropriate length:
-//                var array = [UInt32](count: count, repeatedValue: 0)
-//                
-//                // copy bytes into array
-//                data!.getBytes(&array, length:count * sizeof(UInt32))
-//                
-//                print(array)
-//                // Output: [32, 4, 123, 4, 5, 2]
-//                
+
             }
             else {
                 // Failure
