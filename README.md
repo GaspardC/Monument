@@ -1,3 +1,4 @@
 # Monument
 
-Application Android en cours de developpement pour modéliser en 3d son environment à partir de photos
+Native Android and iOS app which allow to visiualize 3d points of a scene based on photos taken thgrough the camera.
+Done for EPFL project.
